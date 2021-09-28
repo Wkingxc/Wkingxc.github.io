@@ -627,6 +627,9 @@
       
         
         
+      
+        
+        
           
           <swiper-slide>
             <div class="item swiper-lazy" data-background="/medias/1.jpg" style=" background-size: 300000px; 
@@ -1305,7 +1308,7 @@ key=88</div>
         :data="listData"
         :class-option="classOption"
         class="warp"
-        style="height: 60px"
+        style="height: 90px"
       >
         <ul class="index-notice-content__ul">
           
@@ -1314,13 +1317,13 @@ key=88</div>
               
                 <div class="index-notice-content__title">
                   
-                    <a href="/" title="#博客开始测试" style="color:red">
-                      #博客开始测试
+                    <a href="/" title="#博客开始测试---V1.0" style="color:black">
+                      #博客开始测试---V1.0
                     </a>
                   
                 </div>
                 
-                  <div class="index-notice-content__date" style="color:red">
+                  <div class="index-notice-content__date" style="color:black">
                     2021-09-23
                   </div>
                 
@@ -1343,6 +1346,23 @@ key=88</div>
                 
               
             </li>
+          
+            <li>
+              
+                <div class="index-notice-content__title">
+                  
+                    <span title="更新PC侧边栏，移动端文章目录、统计模块---V2.0" style="color:red">
+                      更新PC侧边栏，移动端文章目录、统计模块---V2.0
+                    </span>
+                  
+                </div>
+                
+                  <div class="index-notice-content__date" style="color:red">
+                    2021-09-28
+                  </div>
+                
+              
+            </li>
            
         </ul>
       </vue-seamless-scroll>
@@ -1357,7 +1377,7 @@ key=88</div>
 <script>
   var seamless = JSON.parse('false');
   seamless = seamless ? 0 : 30;
-  var listData = '[object Object],[object Object]' || '';
+  var listData = '[object Object],[object Object],[object Object]' || '';
   listData = listData.split(',');
   var vm = new Vue({
     el: '#appIndexNotice',
@@ -1390,6 +1410,30 @@ key=88</div>
 <div class="topArticle reveal">
 	<h3><i class="fas fa-thumbs-o-up" aria-hidden="true"></i>推荐文章</h3>
 	<div class="articles">
+		
+			
+				<div class="article-link">
+					
+					<div class="article" style="background-size: cover; 
+						background-position: center center;">
+						<img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+					</div>
+					<div class="text">
+						<div class="text-main">
+							<div class="title"><a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">Web基础漏洞</a></div>
+							<div class="content">
+								一、文件包含漏洞
+一、常见函数漏洞点
+
+include()、include_once()、require()、requi
+							</div>
+						</div>
+						<a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" class="more">
+							<i class="fas fa-eye" aria-hidden="true"></i>阅读更多
+						</a>
+					</div>
+				</div>
+			
 		
 			
 		
@@ -1462,6 +1506,71 @@ key=88</div>
         <div class="post-info">
           <div class="post-time">
             <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2021-09-28</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">Web基础漏洞</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">知识点</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            一、文件包含漏洞
+一、常见函数漏洞点
+
+include()、include_once()、require()、require_once()
+
+应用场景：
+
+具有相关文件包含函数
+
+存在动态变量 inlcude $file
+
+攻击者能够控制该
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
+      </div>
+      <div class="post-img">
+        <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+        </a>
+      </div>
+    </article>
+  
+    
+    <article class="post reveal" style="   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
             <span class="post-time">2021-09-27</span>
           </div>
           <div class="post-title">
@@ -1498,7 +1607,7 @@ key=88</div>
         </div>
         <div class="post-more">
           <a href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/">
-            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
           </a>
         </div>
       </div>
@@ -1511,7 +1620,7 @@ key=88</div>
     </article>
   
     
-    <article class="post reveal" style="   ">
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
       <div class="post-main">
         <div class="post-info">
           <div class="post-time">
@@ -1559,7 +1668,7 @@ key=88</div>
         </div>
         <div class="post-more">
           <a href="/2021/09/24/MoeCTF2021_WP/">
-            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
           </a>
         </div>
       </div>
@@ -1572,7 +1681,7 @@ key=88</div>
     </article>
   
     
-    <article class="post reveal" style="flex-direction: row-reverse;   ">
+    <article class="post reveal" style="   ">
       <div class="post-main">
         <div class="post-info">
           <div class="post-time">
@@ -1620,7 +1729,7 @@ key=88</div>
         </div>
         <div class="post-more">
           <a href="/2021/09/24/xctf-warmup/">
-            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
           </a>
         </div>
       </div>
@@ -1633,7 +1742,7 @@ key=88</div>
     </article>
   
     
-    <article class="post reveal" style="   ">
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
       <div class="post-main">
         <div class="post-info">
           <div class="post-time">
@@ -1679,7 +1788,7 @@ key=88
         </div>
         <div class="post-more">
           <a href="/2021/09/23/CTFHub-SSRF/">
-            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
           </a>
         </div>
       </div>
@@ -1692,7 +1801,7 @@ key=88
     </article>
   
     
-    <article class="post reveal" style="flex-direction: row-reverse;   ">
+    <article class="post reveal" style="   ">
       <div class="post-main">
         <div class="post-info">
           <div class="post-time">
@@ -1725,7 +1834,7 @@ key=88
         </div>
         <div class="post-more">
           <a href="/2021/09/23/hello-world/">
-            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
           </a>
         </div>
       </div>
@@ -1832,6 +1941,11 @@ key=88
               ><div class='name'>CTF</div><div class='badge'>(3)</div></a></li>
           
             <li><a class="flat-box"
+              title="/categories/Web%E5%AE%89%E5%85%A8/" href="/categories/Web%E5%AE%89%E5%85%A8/"
+              id="categoriesWebE5AE89E585A8"
+              ><div class='name'>Web安全</div><div class='badge'>(1)</div></a></li>
+          
+            <li><a class="flat-box"
               title="/categories/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%AC%94%E8%AE%B0/" href="/categories/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%AC%94%E8%AE%B0/"
               id="categoriesE79086E8AEBAE8AFBEE7AC94E8AEB0"
               ><div class='name'>理论课笔记</div><div class='badge'>(1)</div></a></li>
@@ -1854,7 +1968,7 @@ key=88
 
 
     <div class='content'>
-    <a href="/tags/CTFHub/" style="font-size: 15px; color: #111">CTFHub</a> <a href="/tags/moectf/" style="font-size: 15px; color: #111">moectf</a> <a href="/tags/xctf/" style="font-size: 15px; color: #111">xctf</a> <a href="/tags/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/" style="font-size: 15px; color: #111">大学物理</a>
+    <a href="/tags/CTFHub/" style="font-size: 15px; color: #111">CTFHub</a> <a href="/tags/Web/" style="font-size: 15px; color: #111">Web</a> <a href="/tags/moectf/" style="font-size: 15px; color: #111">moectf</a> <a href="/tags/xctf/" style="font-size: 15px; color: #111">xctf</a> <a href="/tags/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/" style="font-size: 15px; color: #111">大学物理</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" style="font-size: 15px; color: #111">知识点</a>
     </div>
 </section>
 
@@ -1864,7 +1978,7 @@ key=88
     
   <section class="widget side_archives">
     
-    <header><a style="color: red" href='/archives/'><i class="fas fa-archive fa-fw" aria-hidden="true"></i><span class='name'>归档</span></a></header><div class="content"><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">5</span></a></li></ul></div>
+    <header><a style="color: red" href='/archives/'><i class="fas fa-archive fa-fw" aria-hidden="true"></i><span class='name'>归档</span></a></header><div class="content"><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">6</span></a></li></ul></div>
   </section>
 
     <section class="widget side_webinfo">
@@ -1881,7 +1995,7 @@ key=88
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>5 篇</div>
+          <div>6 篇</div>
         </div>
       
 
@@ -1903,7 +2017,7 @@ key=88
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>6.2k 字</div>
+          <div>8.4k 字</div>
         </div>
       
 
@@ -1929,7 +2043,7 @@ key=88
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Tue Sep 28 2021 15:10:15 GMT+0800 (中国标准时间)</div>
+            <div id="last-update" style="display: none;">Tue Sep 28 2021 16:53:38 GMT+0800 (中国标准时间)</div>
             <div id="last-update-show">2021-09-28 日</div>
           
         </div>
