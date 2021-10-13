@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>XCTF-lottery</title>
+      <link href="/2021/10/09/XCTF-lottery/"/>
+      <url>/2021/10/09/XCTF-lottery/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电子取证随笔</title>
+      <link href="/2021/10/06/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81%E9%9A%8F%E7%AC%94/"/>
+      <url>/2021/10/06/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81%E9%9A%8F%E7%AC%94/</url>
+      
+        <content type="html"><![CDATA[<p>用火眼仿真取证打开虚拟机后，尝试从外部xshell连接，发现被拒绝</p><p>修改<code>/etc/ssh/sshd_config</code>中的 <code>PasswordAuthentication</code>后的参数改为yes</p><p>重启ssh服务<code>systemctl restart sshd</code>即可使用远程工具连接</p><p>1.常用命令：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">history</span> <span class="token comment">#查看历史执行命令</span><span class="token function">netstat</span> -anptl <span class="token comment">#查看服务器开启的端口</span><span class="token function">netstat</span> -antp <span class="token comment">#查看所有监听端口和建立的连接</span><span class="token function">service</span> network restart <span class="token comment">#重启网络服务</span><span class="token function">fdisk</span> -l <span class="token comment">#列出分区情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>2.docker常用命令：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span> <span class="token comment">#查看当前正在运行的容器</span>docker <span class="token function">ps</span> -a <span class="token comment">#查看所有的容器节点</span>docker version <span class="token comment">#查看docker版本</span>docker images <span class="token comment">#列出所有容器镜像</span>docker inspect 容器ID <span class="token comment">#查看容器详细信息，可简写前4位</span>docker <span class="token builtin class-name">exec</span> -it 容器ID /bin/bash <span class="token comment">#进入容器执行命令，exit退出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>3.其他：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Get_Filehash 文件路径 -algorithm SHA256 <span class="token comment">#用powershell计算文件SHA256</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://i.loli.net/2021/10/06/6UGvHjlQR2aoZ4x.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/06/6UGvHjlQR2aoZ4x.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p>发现8091和39999端口有docker代理,输入<code>docker ps</code></p><p><img src="https://i.loli.net/2021/10/06/Hr4KEa1hQliMIjZ.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/06/Hr4KEa1hQliMIjZ.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/06/EUpaeOoJ2YHdjwD.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/06/EUpaeOoJ2YHdjwD.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p>id为16fc..的容器将<code>自身80端口</code>映射到了<code>本机8091端口</code>上，主要运行的命令为nginx；</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电子取证 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 电子取证 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>攻防世界_fakebook</title>
       <link href="/2021/09/29/XCTF-fakegame/"/>
       <url>/2021/09/29/XCTF-fakegame/</url>
