@@ -625,7 +625,7 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 260 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 289 |
           </span>
   
           <span class="min2read">
@@ -656,16 +656,16 @@
         <p>用火眼仿真取证打开虚拟机后，尝试从外部xshell连接，发现被拒绝</p>
 <p>修改<code>/etc/ssh/sshd_config</code>中的 <code>PasswordAuthentication</code>后的参数改为yes</p>
 <p>重启ssh服务<code>systemctl restart sshd</code>即可使用远程工具连接</p>
-<p>1.常用命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">history</span> <span class="token comment">#查看历史执行命令</span>
-<span class="token function">netstat</span> -anptl <span class="token comment">#查看服务器开启的端口</span>
-<span class="token function">netstat</span> -antp <span class="token comment">#查看所有监听端口和建立的连接</span>
+<h4 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1.常用命令："></a>1.常用命令：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">history</span> <span class="token comment">#查看历史执行命令</span>
+<span class="token function">netstat</span> -a <span class="token comment">#查看所有</span>
+<span class="token function">netstat</span> -l <span class="token comment">#查看在监听状态的连接情况</span>
 <span class="token function">service</span> network restart <span class="token comment">#重启网络服务</span>
 
-<span class="token function">fdisk</span> -l <span class="token comment">#列出分区情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+last <span class="token comment">#默认查看/var/log/wtmp的系统登录日志</span>
+timedatectl <span class="token comment">#查看时区</span>
+<span class="token function">fdisk</span> -l <span class="token comment">#列出分区情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>2.docker常用命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span> <span class="token comment">#查看当前正在运行的容器</span>
+<h4 id="2-docker常用命令："><a href="#2-docker常用命令：" class="headerlink" title="2.docker常用命令："></a>2.docker常用命令：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span> <span class="token comment">#查看当前正在运行的容器</span>
 docker <span class="token function">ps</span> -a <span class="token comment">#查看所有的容器节点</span>
 docker version <span class="token comment">#查看docker版本</span>
 docker images <span class="token comment">#列出所有容器镜像</span>
@@ -673,12 +673,10 @@ docker inspect 容器ID <span class="token comment">#查看容器详细信息，
 docker <span class="token builtin class-name">exec</span> -it 容器ID /bin/bash <span class="token comment">#进入容器执行命令，exit退出</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>3.其他：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Get_Filehash 文件路径 -algorithm SHA256 <span class="token comment">#用powershell计算文件SHA256</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-其他："><a href="#3-其他：" class="headerlink" title="3.其他："></a>3.其他：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Get-Filehash 文件路径 -algorithm SHA256 <span class="token comment">#用powershell计算文件SHA256</span>
+certutil -hashfile file.txt SHA256<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-
-
+<h4 id="命令详解"><a href="#命令详解" class="headerlink" title="命令详解"></a>命令详解</h4><h5 id="1-netstat"><a href="#1-netstat" class="headerlink" title="1.netstat"></a>1.netstat</h5><p>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dongl890426/article/details/86981901">netstat详解</a></p>
 <p><img src="https://i.loli.net/2021/10/06/6UGvHjlQR2aoZ4x.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/06/6UGvHjlQR2aoZ4x.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
 <p>发现8091和39999端口有docker代理,输入<code>docker ps</code></p>
 <p><img src="https://i.loli.net/2021/10/06/Hr4KEa1hQliMIjZ.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/06/Hr4KEa1hQliMIjZ.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
