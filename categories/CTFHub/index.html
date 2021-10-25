@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>攻防世界_warmup | Wking&#39;s Blog</title>
+  <title>分类: CTFHub | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -566,554 +566,110 @@
     <div id="safearea">
       <main class="main" id="pjax-container" style="margin-top: 0;">
         
- <!-- prismjs 代码高亮 -->
- 
-    
-    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
-    
-        <link href="/js/prism/prism-tomorrow.min.css" rel="stylesheet">
-    
 
-    <style>
-        pre[class*="language-"] {
-            overflow-y: hidden;
-        }
-        .line-numbers .line-numbers-rows {
-            border: none;
-        }
-    </style>
-  
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-categoryDetail" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
 
-
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-<!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/8.jpg')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
-  
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        攻防世界_warmup
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-09-24 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/XCTF/" class="post-detail-header_category">
-              XCTF
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 320 |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
-    
+<div class="category-header"  style="background-image:url('/medias/categories2.jpg')">
+  <div class="category-header-title">
+    category
   </div>
-  
-  
-    <script src="/js/bubble/bubble.js"></script>
-  
+  <div class="category-header-desc">
+    
+      <span class="title" id="category-header-desc"></span>
+      <script>
+  function typedFn() {
+    const el = '#category-header-desc';
+    const type = 'categoryDetail';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  }
+  typedFn();
+</script>
+      
+  </div>
+  <div class="mask-box"></div>
 </div>
 
 
-
-<div class="row justify-position">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <p> 1.打开网页查看源代码，发现source.php</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822194648656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822194648656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p> 2.开始代码审计，source代码如下</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"> <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">class</span> <span class="token class-name-definition class-name">emmm</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function-definition function">checkFile</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token variable">$page</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token variable">$whitelist</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"source"</span><span class="token operator">=></span><span class="token string double-quoted-string">"source.php"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"hint"</span><span class="token operator">=></span><span class="token string double-quoted-string">"hint.php"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">is_string</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">echo</span> <span class="token string double-quoted-string">"you can't see it"</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">mb_substr</span><span class="token punctuation">(</span>
-                <span class="token variable">$page</span><span class="token punctuation">,</span>
-                <span class="token number">0</span><span class="token punctuation">,</span>
-                <span class="token function">mb_strpos</span><span class="token punctuation">(</span><span class="token variable">$page</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$_page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">urldecode</span><span class="token punctuation">(</span><span class="token variable">$page</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token variable">$_page</span> <span class="token operator">=</span> <span class="token function">mb_substr</span><span class="token punctuation">(</span>
-                <span class="token variable">$_page</span><span class="token punctuation">,</span>
-                <span class="token number">0</span><span class="token punctuation">,</span>
-                <span class="token function">mb_strpos</span><span class="token punctuation">(</span><span class="token variable">$_page</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'?'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$_page</span><span class="token punctuation">,</span> <span class="token variable">$whitelist</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token keyword">echo</span> <span class="token string double-quoted-string">"you can't see it"</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;&amp;</span> <span class="token function">is_string</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;&amp;</span> <span class="token class-name static-context">emmm</span><span class="token operator">::</span><span class="token function">checkFile</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">include</span> <span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">exit</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"&lt;br>&lt;img src=\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\" />"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>  
-<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p>访问白名单出现的hint.php</p>
-<p> <img src="https://img-blog.csdnimg.cn/20210822194859656.png" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822194859656.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p>3.构造payload </p>
-<blockquote>
-<p>既要保证checkfile返回true，又要将file传入的include语句中，我们从第三个if着手</p>
-<p>第三个 if 语句，截取传进参数中首次出现<code>?</code>之前的部分，判断该部分是否存在于<code>$whitelist</code>数组中，存在则返回 true</p>
-</blockquote>
-<p>payload:?file=hint.php?<strong>/../../../../ffffllllaaaagggg</strong></p>
-<p><strong>4.解释后面的构造—重点</strong></p>
-<p>给出官方对include语句的说明</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822195315928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822195315928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-<p> 当我们使用../访问文件时，<font color='red'>/将之前的hint.php?给忽略了</font>，只看后面定义的路径。至于用四次../，可以逐渐增加猜测，也可根据ffffllllaaaagggg形式猜测这是四次。</p>
-<p>从而访问拿到flag</p>
-<p><img src="https://img-blog.csdnimg.cn/20210822195439368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" class="lazyload placeholder" data-srcset="https://img-blog.csdnimg.cn/20210822195439368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
-
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="">
-              代码审计
-            </a>
-          
-        </div>
-        
-      </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Wking</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2021/09/24/XCTF-warmup/" target="_blank" title="攻防世界_warmup">https://Wkingxc.com/2021/09/24/XCTF-warmup/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
-    </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-    </div>
-    <a href="/2021/09/24/MoeCTF2021_WP/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">MoeCTF2021_WP</div>
-      </div>
-      
-      <!-- <div class="content">
-        只有web有全部题目的题解,其余看题目有趣程度(x)
-官方题解
-我的博客：www.wkingxc.com
-一、Web前四
-      </div> -->
-    </a>
+<div class="category">
+  <div class="category-name">
+    <div class="name" style="background-color: #FEF9E7;">CTFHub 分类</div>
   </div>
+  <!-- 每一篇文章卡片 -->
+  <!-- hash算法 -->
 
-
-
+<section class="posts">
   
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
-    </div>
-    <a href="/2021/09/23/CTFHub-SSRF/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">CTFHub--SSRF</div>
-      </div>
-      <!-- <div class="content">
-        
+    
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2021-09-23</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2021/09/23/CTFHub-SSRF/">CTFHub--SSRF</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/CTFHub/">CTFHub</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2021/09/23/CTFHub-SSRF/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            
 一、Post请求1.先用伪协议尝试读取index.php和flag.php文件
 以下为index.php源代码
 
-再看
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
-  }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      
-<section id="comments" style="padding: 1em; margin: 15px auto;"
-	class="animated bounceInUp">
-	<div id="vcomment" class="comment"></div>
-</section>
-<style>
-	#comments {
-		background: rgba(255,255,255,0.9);
-	}
-	#veditor {
-		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: right;
-		background-color: rgba(255, 255, 255, 0);
-		resize: vertical;
-	}
-	#veditor:focus{
-		background-position-y: 200px;
-		transition: all 0.2s ease-in-out 0s;
-	}
-	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
-		background-color: #42b983;
-	}
-	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
-		color: #42b983;
-		border-color: #42b983;
-	}
-	#vcomment .vcards .vcard .vhead .vsys i {
-		display: none;
-	}
-	/* 底部valine链接 */
-	#vcomment .vpower {
-		display: none;
-	}
-	
-	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
-	/* #vcomment .vheader {
-		display: flex;
-		justify-content: space-around;
-	}
-	
-	#vcomment .vheader .vnick {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vmail {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vlink {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	} */
-
-	img.vimg {
-		transition: all 1s;
-		/* 头像旋转时间为 1s */
-	}
-
-	img.vimg:hover {
-		transform: rotate(360deg);
-		-webkit-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		-ms-transform: rotate(360deg);
-	}
-
-	#vcomment .vcards .vcard {
-		padding: 15px 20px 0 20px;
-		border-radius: 10px;
-		margin-bottom: 15px;
-		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
-		transition: all .3s
-	}
-
-	#vcomment .vcards .vcard:hover {
-		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
-	}
-
-	#vcomment .vcards .vcard .vh .vcard {
-		border: none;
-		box-shadow: none;
-	}
-</style>
-    
-  </div>
-
-<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
-
-
-  </div>
-
-  <!-- 目录 -->
-  <!-- 文章详情页右侧目录 -->
-
-  <div class="toc-aside">
-    <div class="toc-main">
-      <div class="toc-aside-title">
-        <i class="fas fa-list-ul" aria-hidden="true"></i><span>本文目录</span>
-        
-          <div class="toc-open-close">本文目录</div>
-        
+再看flag.php里出现了一串奇怪的key，利用curl和gopher协议POST数据到flag.php即可
+key=88
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2021/09/23/CTFHub-SSRF/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
       </div>
-      <div class="toc-content">
-        <div class="toc"></div>
+      <div class="post-img">
+        <a href="/2021/09/23/CTFHub-SSRF/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+        </a>
       </div>
-    </div>
-  </div>
-
-  <!-- 手机端目录按钮 -->
-  <div id="toc-mobile-btn">
-    <i class="fas fa-list-ul" aria-hidden="true"></i>
-  </div>
-  <!-- js在scripts目录下的的toc.ejs里面 -->
+    </article>
   
-
-  <script>
-    function openBtnClickFn () {
-      let openOrCloseBtn = $('.toc-aside .toc-aside-title .toc-open-close');
-      let open = eval('' || 'true');
-      openOrCloseBtn.click(function() {
-        if (open === true) {
-          $(".toc-aside").css({'width': 0, 'padding': 0});
-          $(".toc-content").css({'width': 0});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'none'});
-          $(".main-content").css({'width': '75%', 'margin': '10px auto'});
-          open = false;
-        } else {
-          $(".toc-aside").css({'width': '300px', 'padding': '0 10px'});
-          $(".toc-content").css({'width': '300px'});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'inline-block'});
-          $(".main-content").css({'width': '65%', 'margin-right': '10px', 'margin-left': 'calc(35% - 350px)'});
-          open = true;
-        }
-      });
-    };
-    openBtnClickFn();
-    document.addEventListener('pjax:complete', function () {
-      openBtnClickFn();
-    })
-    
-  </script>
-
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script src="/js/wrapImage.js"></script>
+</section>
 </div>
 
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '/medias/back.jpg';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
-</script>
-
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
 
       </main>
     </div>

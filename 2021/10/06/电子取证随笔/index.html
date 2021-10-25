@@ -625,7 +625,7 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 289 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 313 |
           </span>
   
           <span class="min2read">
@@ -659,11 +659,12 @@
 <h4 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1.常用命令："></a>1.常用命令：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">history</span> <span class="token comment">#查看历史执行命令</span>
 <span class="token function">netstat</span> -a <span class="token comment">#查看所有</span>
 <span class="token function">netstat</span> -l <span class="token comment">#查看在监听状态的连接情况</span>
+<span class="token function">netstat</span> -anp <span class="token comment">#查看所有网络连接状态&lt;--常用</span>
 <span class="token function">service</span> network restart <span class="token comment">#重启网络服务</span>
 
 last <span class="token comment">#默认查看/var/log/wtmp的系统登录日志</span>
 timedatectl <span class="token comment">#查看时区</span>
-<span class="token function">fdisk</span> -l <span class="token comment">#列出分区情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">fdisk</span> -l <span class="token comment">#列出分区情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="2-docker常用命令："><a href="#2-docker常用命令：" class="headerlink" title="2.docker常用命令："></a>2.docker常用命令：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span> <span class="token comment">#查看当前正在运行的容器</span>
 docker <span class="token function">ps</span> -a <span class="token comment">#查看所有的容器节点</span>
@@ -671,7 +672,8 @@ docker version <span class="token comment">#查看docker版本</span>
 docker images <span class="token comment">#列出所有容器镜像</span>
 docker inspect 容器ID <span class="token comment">#查看容器详细信息，可简写前4位</span>
 docker <span class="token builtin class-name">exec</span> -it 容器ID /bin/bash <span class="token comment">#进入容器执行命令，exit退出</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+docker logs <span class="token function">id</span> <span class="token comment">#查看容器日志</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="3-其他："><a href="#3-其他：" class="headerlink" title="3.其他："></a>3.其他：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Get-Filehash 文件路径 -algorithm SHA256 <span class="token comment">#用powershell计算文件SHA256</span>
 certutil -hashfile file.txt SHA256<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
