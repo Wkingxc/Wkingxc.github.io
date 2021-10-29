@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>XCTF-lottery | Wking&#39;s Blog</title>
+  <title>Python-Web | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -593,21 +593,21 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/8.jpg')">
+  background-position: center center;position: relative;background-image:url('/medias/13.jpg')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        XCTF-lottery
+        Python-Web
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-10-09 |
+          <i class="fas fa-calendar"></i> 发表于：2021-10-26 |
         </span>
       
 
@@ -616,7 +616,7 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 0 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 176 |
           </span>
   
           <span class="min2read">
@@ -644,9 +644,63 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        
+        <h2 id="一、python爬虫基础"><a href="#一、python爬虫基础" class="headerlink" title="一、python爬虫基础"></a>一、python爬虫基础</h2><p>常用方法:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+r<span class="token punctuation">.</span>text <span class="token comment">#字符串数据</span>
+r<span class="token punctuation">.</span>encoding <span class="token comment">#编码方式</span>
+r<span class="token punctuation">.</span>content <span class="token comment">#获得的字节数据,用.decode()解码成字符串</span>
+r<span class="token punctuation">.</span>status_code <span class="token comment">#返回状态</span>
+r<span class="token punctuation">.</span>headers <span class="token comment">#响应头</span>
+r<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token operator">**</span><span class="token operator">*</span> <span class="token comment">#请求的数据,例如headers</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="1-发送带header的请求"><a href="#1-发送带header的请求" class="headerlink" title="1.发送带header的请求"></a>1.发送带header的请求</h4><p>header的形式：字典</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span><span class="token string">'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36 Edg/95.0.1020.30'</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http://www.baidu.com"</span><span class="token punctuation">,</span>headers<span class="token operator">=</span>headers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-发送带参数的请求"><a href="#2-发送带参数的请求" class="headerlink" title="2.发送带参数的请求"></a>2.发送带参数的请求</h4><p>参数的形式：字典</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'wd'</span><span class="token punctuation">:</span><span class="token string">'CTF'</span><span class="token punctuation">&#125;</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http://www.baidu.com/s?"</span><span class="token punctuation">,</span>params<span class="token operator">=</span>payload<span class="token punctuation">,</span>headers<span class="token operator">=</span>headers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="3-发送POST请求"><a href="#3-发送POST请求" class="headerlink" title="3.发送POST请求"></a>3.发送POST请求</h4><p>data的形式：字典</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span>data<span class="token operator">=</span>data<span class="token punctuation">,</span>headers<span class="token operator">=</span>headers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Python/" class="">
+              Python
+            </a>
+          
+        </div>
         
       </div>
       
@@ -657,7 +711,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2021/10/09/XCTF-lottery/" target="_blank" title="XCTF-lottery">https://Wkingxc.com/2021/10/09/XCTF-lottery/</a>
+    <a href="/2021/10/26/Python-Web/" target="_blank" title="Python-Web">https://Wkingxc.com/2021/10/26/Python-Web/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -679,17 +733,20 @@
   <div class="post-nav-prev post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/15.jpg" class="lazyload placeholder" data-srcset="/medias/15.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
     </div>
-    <a href="/2021/10/20/%E6%A6%82%E7%8E%87%E8%AE%BA/" class="post-nav-link">
+    <a href="/2021/10/26/BUUCTF-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" class="post-nav-link">
       <div class="title">
         <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">概率论</div>
+        <div class="title-text">BUUCTF-随便注</div>
       </div>
       
       <!-- <div class="content">
-        一、概率论的基本概念(一)概率的三大公式1.乘法公式$$P(AB)=P(A)P(B|A)=P(B)P(A|B)$$
-2.
+        简单尝试后，发现是字符型注入，字段为2
+
+尝试使用union注入，发现被过滤，尝试后发现，无法绕过select的过滤
+
+
       </div> -->
     </a>
   </div>
@@ -700,16 +757,16 @@
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/2.jpg" class="lazyload placeholder" data-srcset="/medias/2.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
     </div>
-    <a href="/2021/10/06/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81%E9%9A%8F%E7%AC%94/" class="post-nav-link">
+    <a href="/2021/10/25/XCTF-lottery/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">电子取证随笔</div>
+        <div class="title-text">XCTF-lottery</div>
       </div>
       <!-- <div class="content">
-        用火眼仿真取证打开虚拟机后，尝试从外部xshell连接，发现被拒绝
-修改/etc/ssh/sshd_config中的 P
+        1.打开网页，注册账号登录，发现猜数字可以获得奖金，足够多的奖金可以购买flag
+2.目录扫描工具发现robots.tx
       </div> -->
     </a>
   </div>

