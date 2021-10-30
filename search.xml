@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>BUUCTF-EazyMD5</title>
+      <link href="/2021/10/30/BUUCTF-EazyMD5/"/>
+      <url>/2021/10/30/BUUCTF-EazyMD5/</url>
+      
+        <content type="html"><![CDATA[<p>打开题目，尝试注入，毫无回显；bp抓包，看到header部分有hint，是一条sql语句</p><p><img src="https://i.loli.net/2021/10/30/CTjcBeknNh5MWDv.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/CTjcBeknNh5MWDv.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/30/Ci8brvuk2ZWJ1hY.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/Ci8brvuk2ZWJ1hY.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><h3 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h3><h4 id="1-关于password-md5-pass-true"><a href="#1-关于password-md5-pass-true" class="headerlink" title="1.关于password=md5($pass,true)"></a>1.关于password=md5($pass,true)</h4><p><img src="https://i.loli.net/2021/10/30/vPY6mpqGRTAJl1y.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/vPY6mpqGRTAJl1y.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><blockquote><ol><li><code>content: ffifdyop</code></li><li><code>hex: 276f722736c95d99e921722cf9ed621c</code></li><li><code>raw: &#39;or&#39;6\xc9]\x99\xe9!r,\xf9\xedb\x1c</code></li><li><code>string: &#39;or&#39;6]!r,b</code></li></ol></blockquote><p>此处添加了 true，所以原始的16字符二进制格式被带到了sql语句当中</p><p>echo md5(‘ffifdyop’,true) 的结果是 —&gt; <code>&#39;or&#39;6�]��!r,��b</code></p><pre class="line-numbers language-none"><code class="language-none">select * from &#39;admin&#39; where password&#x3D;&#39;&#39;or&#39;6�]��!r,��b&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>为什么password = ‘’or’6�]��!r,��b’的返回值会是true呢</p><p>因为or后面的单引号里面的字符串（6�]��!r,��b），是数字开头的。当然不能以0开头。</p><p><font color='red'>在mysql里面，在用作布尔型判断时，以1开头的字符串会被当做整型数。要注意的是这种情况是必须要有单引号括起来的</font></p><p>比如``password=‘xxx’ or ‘1xxxxxxxxx’<code>，那么就相当于</code>password=‘xxx’ or 1<code>  ，也相当于</code>password=‘xxx’ or true`，所以返回值就是true。</p><p><font color='red'>不只是1开头，只要是数字开头都是可以的。</font></p><p>当然如果只有数字的话，就不需要单引号，比如password=‘xxx’ or 1，那么返回值也是true。（xxx指代任意字符）</p><p>payload: </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">?password<span class="token operator">=</span>ffifdyop<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>进入新页面，查看源代码发现：</p><pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php$a &#x3D; $_GET[&#39;a&#39;];$b &#x3D; $_GET[&#39;b&#39;];if($a !&#x3D; $b &amp;&amp; md5($a) &#x3D;&#x3D; md5($b))&#123;    &#x2F;&#x2F; wow, glzjin wants a girl friend.?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>此处是<code>==</code>，即是弱比较，绕过有两种方式</p><h4 id="2-md5弱碰撞"><a href="#2-md5弱碰撞" class="headerlink" title="2.md5弱碰撞"></a>2.md5弱碰撞</h4><blockquote><p>QNKCDZO<br>0e830400451993494058024219903391</p><p>s878926199a<br>0e545993274517709034328855841020</p><p>s155964671a<br>0e342768416822451524974117254469</p><p>s214587387a<br>0e848240448830537924465865611904</p><p>s214587387a<br>0e848240448830537924465865611904</p><p>s878926199a<br>0e545993274517709034328855841020</p><p>s1091221200a<br>0e940624217856561557816327384675</p><p>s1885207154a<br>0e509367213418206700842008763514</p></blockquote><p>以上字符串被md5加密后，都是以0e开头，在php中会认为是0的次方，所以弱比较的返回值相同</p><h4 id="3-md5强比较"><a href="#3-md5强比较" class="headerlink" title="3.md5强比较"></a>3.md5强比较</h4><p>md5不能处理数组，所以会返回false，比较结果就是true</p><p>payload1:</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/levels91.php?a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token operator">&amp;</span>b<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://i.loli.net/2021/10/30/qOeSQ5jfnYaGNdC.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/qOeSQ5jfnYaGNdC.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><h1 id="注意：hackbar的url输入框不会因为进入新页面而刷新，要手动loadurl！"><a href="#注意：hackbar的url输入框不会因为进入新页面而刷新，要手动loadurl！" class="headerlink" title="注意：hackbar的url输入框不会因为进入新页面而刷新，要手动loadurl！"></a>注意：hackbar的url输入框不会因为进入新页面而刷新，要手动loadurl！</h1><p><img src="https://i.loli.net/2021/10/30/UWl4QCkmK3F9YG8.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/UWl4QCkmK3F9YG8.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> BUUCTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> php相关 </tag>
+            
+            <tag> sql注入 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>BUU-eazy_tornado</title>
+      <link href="/2021/10/30/BUU-eazy-tornado/"/>
+      <url>/2021/10/30/BUU-eazy-tornado/</url>
+      
+        <content type="html"><![CDATA[<p>打开题目发现三个文件，点开查看并观察URL</p><p><img src="https://i.loli.net/2021/10/30/l6HpMQYB2SCx9wy.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/l6HpMQYB2SCx9wy.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/30/flhtrHZbuFmMgpc.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/flhtrHZbuFmMgpc.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/30/JCk4lb63PQSrDTA.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/JCk4lb63PQSrDTA.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/30/BaJhHlbWuFYf3qS.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/BaJhHlbWuFYf3qS.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p>了解到访问一个文件需要知道它的特殊hash值</p><h3 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a><strong>知识点：</strong></h3><p> <code>render()</code>，这个是生成模板的函数，于是想到模板注入STTI。</p><p>尝试访问<code>/fllllllllllllag</code>,出现报错页面，很有可能就是注入点</p><p><img src="https://i.loli.net/2021/10/30/1QI7qOBpyM56wZi.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/1QI7qOBpyM56wZi.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p><img src="https://i.loli.net/2021/10/30/b21k5eVaDqlXgNE.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/b21k5eVaDqlXgNE.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p>用了几次基本的注入模板，发现总是出现ORZ，应该是被过滤了一些特殊字符</p><blockquote><p>在Tornado的前端页面模板中，Tornado提供了一些对象别名来快速访问对象，具体定义可以<a href="http://tornado.readthedocs.org/en/latest/guide/templates.html#template-syntax">参考Tornado官方文档</a>！</p></blockquote><p><img src="https://i.loli.net/2021/10/30/1AkTlqnGQjbXgJ6.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/1AkTlqnGQjbXgJ6.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="image-20211030161106297"></p><p>网上搜索了解到，可以使用<code>&#123;&#123;handler.settings&#125;&#125;</code> 获取当前页面的一些请求信息</p><p>handler 指向RequestHandler</p><p>而RequestHandler.settings又指向self.application.settings。</p><p>所以构造payload:</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">error?msg<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>handler.settings<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://i.loli.net/2021/10/30/JMAUYotPcryFBdv.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/JMAUYotPcryFBdv.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p><p>拿到cookie_secret，用python写脚本构造filehash</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> hashlibcookie <span class="token operator">=</span> <span class="token string">'1ccd7a19-fe54-4ce1-a950-d70dc6e701a0'</span>filename <span class="token operator">=</span> <span class="token string">'/fllllllllllllag'</span><span class="token keyword">def</span> <span class="token function">md5</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">:</span>    m <span class="token operator">=</span> hashlib<span class="token punctuation">.</span>md5<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">#创建md5对象</span>    m<span class="token punctuation">.</span>update<span class="token punctuation">(</span>code<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">#更新md5要加密的值，主要要encode</span>    <span class="token keyword">return</span> m<span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span>res <span class="token operator">=</span> md5<span class="token punctuation">(</span>cookie<span class="token operator">+</span>md5<span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">print</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><img src="https://i.loli.net/2021/10/30/NulfhPBsi4HRZkn.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/30/NulfhPBsi4HRZkn.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="image-20211030163223338"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> BUUCTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SSTI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>BUUCTF-EasyCalc</title>
       <link href="/2021/10/28/BUUCTF-EasyCalc/"/>
       <url>/2021/10/28/BUUCTF-EasyCalc/</url>

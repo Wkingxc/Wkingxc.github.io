@@ -654,6 +654,12 @@
       
         
         
+      
+        
+        
+      
+        
+        
           
           <swiper-slide>
             <div class="item swiper-lazy" data-background="/medias/1.jpg" style=" background-size: 300000px; 
@@ -1435,6 +1441,10 @@ key=88</div>
 			
 		
 			
+		
+			
+		
+			
 				<div class="article-link">
 					
 					<div class="article" style="background-size: cover; 
@@ -1554,6 +1564,128 @@ include()、include_once()、require()、requi
     <!-- hash算法 -->
 
 <section class="posts">
+  
+    
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2021-10-30</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2021/10/30/BUUCTF-EazyMD5/">BUUCTF-EazyMD5</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php%E7%9B%B8%E5%85%B3/" rel="tag">php相关</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/BUUCTF/">BUUCTF</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2021/10/30/BUUCTF-EazyMD5/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            打开题目，尝试注入，毫无回显；bp抓包，看到header部分有hint，是一条sql语句
+
+
+知识点：1.关于password=md5($pass,true)
+
+
+content: ffifdyop
+hex: 276f722736c95d9
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2021/10/30/BUUCTF-EazyMD5/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
+      </div>
+      <div class="post-img">
+        <a href="/2021/10/30/BUUCTF-EazyMD5/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+        </a>
+      </div>
+    </article>
+  
+    
+    <article class="post reveal" style="   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2021-10-30</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2021/10/30/BUU-eazy-tornado/">BUU-eazy_tornado</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/BUUCTF/">BUUCTF</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2021/10/30/BUU-eazy-tornado/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            打开题目发现三个文件，点开查看并观察URL
+
+
+
+
+了解到访问一个文件需要知道它的特殊hash值
+知识点： render()，这个是生成模板的函数，于是想到模板注入STTI。
+尝试访问/fllllllllllllag,出现报错页面，很有可能
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2021/10/30/BUU-eazy-tornado/">
+            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
+          </a>
+        </div>
+      </div>
+      <div class="post-img">
+        <a href="/2021/10/30/BUU-eazy-tornado/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+        </a>
+      </div>
+    </article>
   
     
     <article class="post reveal" style="flex-direction: row-reverse;   ">
@@ -2013,125 +2145,6 @@ f
       </div>
     </article>
   
-    
-    <article class="post reveal" style="flex-direction: row-reverse;   ">
-      <div class="post-main">
-        <div class="post-info">
-          <div class="post-time">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            <span class="post-time">2021-09-28</span>
-          </div>
-          <div class="post-title">
-            <a class="post-title-link" href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">Web基础漏洞</a>
-          </div>
-          <div class="post-meta">
-            <div class="post-tags">
-              <!-- 文章详情页的标签 -->
-
-    <i class="iconfont icontag"></i>
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">Web知识点</a></li></ul>
-
-            </div>
-            <div class="post-categories">
-              <!-- 文章详情页的分类 -->
-
-<div class="article-category">
-  <i class="iconfont iconbookmark1"></i>
-  <a class="article-category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
-</div>
-
-
-            </div>
-          </div>
-          <div class="post-img-mobile">
-            <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
-              background-position: center center;">
-              <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-content">
-            一、文件包含漏洞
-一、常见函数漏洞点
-
-include()、include_once()、require()、require_once()
-
-应用场景：
-
-具有相关文件包含函数
-
-存在动态变量 inlcude $file
-
-攻击者能够控制该
-          </div>
-        </div>
-        <div class="post-more">
-          <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
-            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
-          </a>
-        </div>
-      </div>
-      <div class="post-img">
-        <a href="/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" style="background-size: cover; 
-          background-position: center center;">
-          <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-        </a>
-      </div>
-    </article>
-  
-    
-    <article class="post reveal" style="   ">
-      <div class="post-main">
-        <div class="post-info">
-          <div class="post-time">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            <span class="post-time">2021-09-27</span>
-          </div>
-          <div class="post-title">
-            <a class="post-title-link" href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/">大物电磁学</a>
-          </div>
-          <div class="post-meta">
-            <div class="post-tags">
-              <!-- 文章详情页的标签 -->
-
-            </div>
-            <div class="post-categories">
-              <!-- 文章详情页的分类 -->
-
-<div class="article-category">
-  <i class="iconfont iconbookmark1"></i>
-  <a class="article-category-link" href="/categories/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%AC%94%E8%AE%B0/">理论课笔记</a>
-</div>
-
-
-            </div>
-          </div>
-          <div class="post-img-mobile">
-            <a href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/" style="background-size: cover; 
-              background-position: center center;">
-              <img class="lazyload lazyload placeholder" src="/medias/14.jpg" class="lazyload placeholder" data-srcset="/medias/14.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-content">
-            常用公式：
-
-
-
-          </div>
-        </div>
-        <div class="post-more">
-          <a href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/">
-            <i class="iconfont iconmore" pointer style="  " title="阅读更多"></i>
-          </a>
-        </div>
-      </div>
-      <div class="post-img">
-        <a href="/2021/09/27/%E7%94%B5%E7%A3%81%E5%AD%A6/" style="background-size: cover; 
-          background-position: center center;">
-          <img class="lazyload lazyload placeholder" src="/medias/14.jpg" class="lazyload placeholder" data-srcset="/medias/14.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-        </a>
-      </div>
-    </article>
-  
 </section>
     <!-- 翻页 -->
     
@@ -2240,7 +2253,7 @@ include()、include_once()、require()、require_once()
             <li><a class="flat-box"
               title="/categories/BUUCTF/" href="/categories/BUUCTF/"
               id="categoriesBUUCTF"
-              ><div class='name'>BUUCTF</div><div class='badge'>(2)</div></a></li>
+              ><div class='name'>BUUCTF</div><div class='badge'>(4)</div></a></li>
           
             <li><a class="flat-box"
               title="/categories/CTF/" href="/categories/CTF/"
@@ -2290,7 +2303,7 @@ include()、include_once()、require()、require_once()
 
 
     <div class='content'>
-    <a href="/tags/Python/" style="font-size: 15px; color: #111">Python</a> <a href="/tags/SSRF/" style="font-size: 15px; color: #111">SSRF</a> <a href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/" style="font-size: 15px; color: #111">Web知识点</a> <a href="/tags/php%E7%9B%B8%E5%85%B3/" style="font-size: 15px; color: #111">php相关</a> <a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 24px; color: #666">sql注入</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="font-size: 19.5px; color: #3c3c3c">代码审计</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81/" style="font-size: 15px; color: #111">电子取证</a>
+    <a href="/tags/Python/" style="font-size: 15px; color: #111">Python</a> <a href="/tags/SSRF/" style="font-size: 15px; color: #111">SSRF</a> <a href="/tags/SSTI/" style="font-size: 15px; color: #111">SSTI</a> <a href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/" style="font-size: 15px; color: #111">Web知识点</a> <a href="/tags/php%E7%9B%B8%E5%85%B3/" style="font-size: 19.5px; color: #3c3c3c">php相关</a> <a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 24px; color: #666">sql注入</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="font-size: 19.5px; color: #3c3c3c">代码审计</a> <a href="/tags/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81/" style="font-size: 15px; color: #111">电子取证</a>
     </div>
 </section>
 
@@ -2300,7 +2313,7 @@ include()、include_once()、require()、require_once()
     
   <section class="widget side_archives">
     
-    <header><a style="color: red" href='/archives/'><i class="fas fa-archive fa-fw" aria-hidden="true"></i><span class='name'>归档</span></a></header><div class="content"><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/10/"><span class="card-archive-list-date">十月 2021</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">6</span></a></li></ul></div>
+    <header><a style="color: red" href='/archives/'><i class="fas fa-archive fa-fw" aria-hidden="true"></i><span class='name'>归档</span></a></header><div class="content"><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/10/"><span class="card-archive-list-date">十月 2021</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">6</span></a></li></ul></div>
   </section>
 
     <section class="widget side_webinfo">
@@ -2317,7 +2330,7 @@ include()、include_once()、require()、require_once()
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>13 篇</div>
+          <div>15 篇</div>
         </div>
       
 
@@ -2339,7 +2352,7 @@ include()、include_once()、require()、require_once()
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>12.7k 字</div>
+          <div>13.5k 字</div>
         </div>
       
 
@@ -2365,8 +2378,8 @@ include()、include_once()、require()、require_once()
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Fri Oct 29 2021 22:41:58 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2021-10-29 日</div>
+            <div id="last-update" style="display: none;">Sat Oct 30 2021 17:32:15 GMT+0800 (中国标准时间)</div>
+            <div id="last-update-show">2021-10-30 日</div>
           
         </div>
         
@@ -2416,7 +2429,7 @@ include()、include_once()、require()、require_once()
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-10-29 日';
+            document.getElementById('last-update-show').innerHTML = '2021-10-30 日';
           }
         </script>
         
