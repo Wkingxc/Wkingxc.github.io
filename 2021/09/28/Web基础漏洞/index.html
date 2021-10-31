@@ -625,7 +625,7 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 2.3k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 2.4k |
           </span>
   
           <span class="min2read">
@@ -735,19 +735,19 @@
 <span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token function">readfile</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'../../../flag'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span> 读取并显示文件
 
 <span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'find / -name flag*'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span> 调用系统命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
 <li><p><font color='red'>data:URI schema</font> （可以绕过php字符）</p>
 <ul>
 <li>利用条件：php&gt;=5.2,allow_url_include/fopen=on</li>
-<li>利用方式:<code>file=data:text/plain, php代码</code></li>
-</ul>
-</li>
+<li>利用方式:<code>file=data:text/plain, 代码</code></li>
 </ul>
 </li>
 <li><p><font color='red'>php://filter</font></p>
 <p>一般用它来读取源码，不过要先经过base64加密，得到结果后再解密</p>
 <ul>
 <li>利用方式:<code>=php://filter/read=convert.base64-encode/resource=文件名</code></li>
-<li>常用来查看不被php解析显示的信息</li>
+<li><strong>常用来查看不被php解析显示的信息</strong></li>
 </ul>
 </li>
 <li><p><font color='red'>phar://</font></p>
@@ -842,6 +842,19 @@
 <li><p><font color='red'>4、::$DATA绕过</font>     在文件后面加上::$DATA<br>基于Windows的NTFS文件流特性</p>
 </li>
 <li><p><font color='red'>5、双写绕过</font>——后缀名改为<code>pphphp</code></p>
+</li>
+<li><p><font color='red'>6、上传 .user.ini添加后门</font> <a target="_blank" rel="noopener" href="https://wooyun.js.org/drops/user.ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8.html">.user.ini文件构成的PHP后门</a></p>
+<ul>
+<li><p>只要是以fastcgi运行的php都可以用这个方法</p>
+</li>
+<li><p><img src="https://i.loli.net/2021/10/31/XLqch7GYfPtFJ1O.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/31/XLqch7GYfPtFJ1O.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+</li>
+<li><p><code>auto_prepend_file</code>指定一个文件，自动包含在要执行的文件前，类似于在文件前调用了require()函数。而<code>auto_append_file</code>类似，只是在文件后面包含。 使用方法很简单，直接写在.user.ini中：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">auto_append_file</span><span class="token operator">=</span>shell.jpg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>我们可以借助.user.ini轻松让所有php文件都“自动”包含某个文件</p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
