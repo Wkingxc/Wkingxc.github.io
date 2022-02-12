@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 2.4k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 2.5k |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 9分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 10分钟 |
           </span>
   
           
@@ -653,7 +653,10 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <h2 id="一、文件包含漏洞"><a href="#一、文件包含漏洞" class="headerlink" title="一、文件包含漏洞"></a>一、文件包含漏洞</h2><ul>
+        <h2 id="信息泄露"><a href="#信息泄露" class="headerlink" title="信息泄露"></a>信息泄露</h2><p>常见的信息泄露：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a597934448/article/details/105431367"> CTFHUBWeb技能树——信息泄露</a></p>
+<p>robots.txt    .git    .phps    .svn    <a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a>    vim缓存泄露(.index.php.swp)    </p>
+<p>kindeditor的文件空间    php测试探针（tz.php)    backup.sql</p>
+<h2 id="一、文件包含漏洞"><a href="#一、文件包含漏洞" class="headerlink" title="一、文件包含漏洞"></a>一、文件包含漏洞</h2><ul>
 <li><p>一、常见函数漏洞点</p>
 <ul>
 <li><p>include()、include_once()、require()、require_once()</p>
@@ -741,6 +744,7 @@
 <ul>
 <li>利用条件：php&gt;=5.2,allow_url_include/fopen=on</li>
 <li>利用方式:<code>file=data:text/plain, 代码</code></li>
+<li><code>file=data:text/plain;base64,&lt;?php system(&#39;cat flag.php&#39;);</code></li>
 </ul>
 </li>
 <li><p><font color='red'>php://filter</font></p>
@@ -748,6 +752,8 @@
 <ul>
 <li>利用方式:<code>=php://filter/read=convert.base64-encode/resource=文件名</code></li>
 <li><strong>常用来查看不被php解析显示的信息</strong></li>
+<li><code>php://filter/write=convert.base64-decode/resource=</code></li>
+<li>可以将base64的字符串解码后写入resource的文件里</li>
 </ul>
 </li>
 <li><p><font color='red'>phar://</font></p>

