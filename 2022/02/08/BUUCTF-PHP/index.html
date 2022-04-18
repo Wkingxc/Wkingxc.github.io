@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 405 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 924 |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 4分钟 |
           </span>
   
           
@@ -696,6 +696,69 @@ preg_replace(&#39;&#x2F;(\S*)&#x2F;ei&#39;,&#39;strtolower(&quot;\\1&quot;)&#39;
 \S    匹配任何非空白非打印字符。等价于 [^ \f\n\r\t\v]。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>构造payload:<code>?\S*=$&#123;getFlag()&#125;&amp;cmd=system(&#39;cat /flag&#39;);</code>或者<code>?\S*=$&#123;eval($_POST[1])&#125;</code></p>
+<h2 id="二、-ASIS-2019-Unicorn-shop"><a href="#二、-ASIS-2019-Unicorn-shop" class="headerlink" title="二、[ASIS 2019]Unicorn shop"></a>二、[ASIS 2019]Unicorn shop</h2><h3 id="知识点：unicode字符，UTF-8转码问题"><a href="#知识点：unicode字符，UTF-8转码问题" class="headerlink" title="知识点：unicode字符，UTF-8转码问题"></a>知识点：unicode字符，UTF-8转码问题</h3><p>经过几次尝试后，发现要购买第四项商品，但参数price只能接受单个字符。</p>
+<p>让price传空，发现了如下报错：</p>
+<pre class="line-numbers language-none"><code class="language-none">Traceback (most recent call last):
+  File &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python2.7&#x2F;site-packages&#x2F;tornado&#x2F;web.py&quot;, line 1541, in _execute
+    result &#x3D; method(*self.path_args, **self.path_kwargs)
+  File &quot;&#x2F;app&#x2F;sshop&#x2F;views&#x2F;Shop.py&quot;, line 34, in post
+    unicodedata.numeric(price)
+TypeError: need a single Unicode character as parameter<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://s2.loli.net/2022/02/14/tJXB1IyGEvM2udo.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2022/02/14/tJXB1IyGEvM2udo.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>进入这个网址查找比1337大的unicode单字符即可(搜索thousand)，<a target="_blank" rel="noopener" href="https://www.compart.com/en/unicode/">https://www.compart.com/en/unicode/</a></p>
+<p>并将utf-8 encoding那项的0x改为%即可。</p>
+<p>最终payload:<code>POST:id=4&amp;price=%E2%86%87</code></p>
+<h2 id="三、-WUSTCTF2020-朴实无华"><a href="#三、-WUSTCTF2020-朴实无华" class="headerlink" title="三、[WUSTCTF2020]朴实无华"></a>三、[WUSTCTF2020]朴实无华</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Content-type:text/html;charset=utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//level 1</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'num'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token variable">$num</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'num'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token variable">$num</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">2020</span> <span class="token operator">&amp;&amp;</span> <span class="token function">intval</span><span class="token punctuation">(</span><span class="token variable">$num</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">2021</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"我不经意间看了看我的劳力士, 不是想看时间, 只是想不经意间, 让你知道我过得比你好.&lt;/br>"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"金钱解决不了穷人的本质问题"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"去非洲吧"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//level 2</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'md5'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token variable">$md5</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'md5'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$md5</span><span class="token operator">==</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token variable">$md5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token keyword">echo</span> <span class="token string double-quoted-string">"想到这个CTFer拿到flag后, 感激涕零, 跑去东澜岸, 找一家餐厅, 把厨师轰出去, 自己炒两个拿手小菜, 倒一杯散装白酒, 致富有道, 别学小暴.&lt;/br>"</span><span class="token punctuation">;</span>
+   <span class="token keyword">else</span>
+       <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"我赶紧喊来我的酒肉朋友, 他打了个电话, 把他一家安排到了非洲"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"去非洲吧"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//get flag</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'get_flag'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token variable">$get_flag</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'get_flag'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token variable">$get_flag</span><span class="token punctuation">,</span><span class="token string double-quoted-string">" "</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token variable">$get_flag</span> <span class="token operator">=</span> <span class="token function">str_ireplace</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"cat"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"wctf2020"</span><span class="token punctuation">,</span> <span class="token variable">$get_flag</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"想到这里, 我充实而欣慰, 有钱人的快乐往往就是这么的朴实无华, 且枯燥.&lt;/br>"</span><span class="token punctuation">;</span>
+        <span class="token function">system</span><span class="token punctuation">(</span><span class="token variable">$get_flag</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"快到非洲了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"去非洲吧"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-intval-绕过"><a href="#1-intval-绕过" class="headerlink" title="1.intval()绕过"></a>1.intval()绕过</h3><p>经测试以下只适合php7.0及以下版本，此题同理</p>
+<pre class="line-numbers language-none"><code class="language-none">echo intval(&#39;5e2&#39;); &#x2F;&#x2F;5
+echo intval(&#39;5e2&#39;+1); &#x2F;&#x2F;501<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="2-MD5绕过"><a href="#2-MD5绕过" class="headerlink" title="2.MD5绕过"></a>2.MD5绕过</h3><p>md5(xxx)==xxx</p>
+<pre class="line-numbers language-none"><code class="language-none">0e215962017
+md5值：0e291242476940776845150308577824<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>两种特殊的md5，可绕过弱比较</p>
 
       </div>
       <div class="post-tags-categories">
@@ -763,7 +826,7 @@ if(isset($_GET['file']))&#12
       background-position: center center;">
       <img class="lazyload lazyload placeholder" src="/medias/9.jpg" class="lazyload placeholder" data-srcset="/medias/9.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" src="" alt="">
     </div>
-    <a href="/2022/02/04/BUUCTF-SQL%E6%B3%A8%E5%85%A5%E7%B1%BB/" class="post-nav-link">
+    <a href="/2022/02/04/BUUCTF-sql%E6%B3%A8%E5%85%A5%E7%B1%BB/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
         <div class="title-text">BUUCTF_SQL注入类</div>

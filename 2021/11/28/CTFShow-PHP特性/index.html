@@ -616,11 +616,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.1k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 1.4k |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 5分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 7分钟 |
           </span>
   
           
@@ -648,6 +648,26 @@
 <p>相关函数特性</p>
 <h3 id="1-intval"><a href="#1-intval" class="headerlink" title="1.intval()"></a>1.intval()</h3><p><img src="https://i.loli.net/2021/11/29/qEUSJk7TZH8OMng.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/29/qEUSJk7TZH8OMng.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
 <p><img src="https://i.loli.net/2021/11/29/7eTSFLgfOzjvwca.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/29/7eTSFLgfOzjvwca.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php
+echo intval(42);                      &#x2F;&#x2F; 42
+echo intval(4.2);                     &#x2F;&#x2F; 4
+echo intval(&#39;42&#39;);                    &#x2F;&#x2F; 42
+echo intval(&#39;+42&#39;);                   &#x2F;&#x2F; 42
+echo intval(&#39;-42&#39;);                   &#x2F;&#x2F; -42
+echo intval(042);                     &#x2F;&#x2F; 34
+echo intval(&#39;042&#39;);                   &#x2F;&#x2F; 42
+echo intval(1e10);                    &#x2F;&#x2F; 1410065408
+echo intval(&#39;1e10&#39;);                  &#x2F;&#x2F; 1
+echo intval(0x1A);                    &#x2F;&#x2F; 26
+echo intval(42000000);                &#x2F;&#x2F; 42000000
+echo intval(420000000000000000000);   &#x2F;&#x2F; 0
+echo intval(&#39;420000000000000000000&#39;); &#x2F;&#x2F; 2147483647
+echo intval(42, 8);                   &#x2F;&#x2F; 42
+echo intval(&#39;42&#39;, 8);                 &#x2F;&#x2F; 34
+echo intval(array());                 &#x2F;&#x2F; 0
+echo intval(array(&#39;foo&#39;, &#39;bar&#39;));     &#x2F;&#x2F; 1
+?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="web89"><a href="#web89" class="headerlink" title="web89"></a>web89</h4><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"flag.php"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -691,6 +711,12 @@
 </blockquote>
 <p>以上字符串被md5加密后，都是以0e开头，在php中会认为是0的次方，所以弱比较的返回值相同</p>
 <h4 id="2-md5强比较"><a href="#2-md5强比较" class="headerlink" title="(2) md5强比较"></a>(2) md5强比较</h4><p>md5不能处理数组，所以会返回false，比较结果就是true</p>
+<h4 id="3-md5强碰撞"><a href="#3-md5强碰撞" class="headerlink" title="(3)md5强碰撞"></a>(3)md5强碰撞</h4><pre class="line-numbers language-none"><code class="language-none">a&#x3D;%4d%c9%68%ff%0e%e3%5c%20%95%72%d4%77%7b%72%15%87%d3%6f%a7%b2%1b%dc%56%b7%4a%3d%c0%78%3e%7b%95%18%af%bf%a2%00%a8%28%4b%f3%6e%8e%4b%55%b3%5f%42%75%93%d8%49%67%6d%a0%d1%55%5d%83%60%fb%5f%07%fe%a2&amp;b&#x3D;%4d%c9%68%ff%0e%e3%5c%20%95%72%d4%77%7b%72%15%87%d3%6f%a7%b2%1b%dc%56%b7%4a%3d%c0%78%3e%7b%95%18%af%bf%a2%02%a8%28%4b%f3%6e%8e%4b%55%b3%5f%42%75%93%d8%49%67%6d%a0%d1%d5%5d%83%60%fb%5f%07%fe%a2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
 <h3 id="3-in-array"><a href="#3-in-array" class="headerlink" title="3.in_array()"></a>3.in_array()</h3><p><img src="https://i.loli.net/2021/11/29/fD4IxvldJYOyEpV.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/11/29/fD4IxvldJYOyEpV.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
 <h4 id="web99"><a href="#web99" class="headerlink" title="web99"></a>web99</h4><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$allow</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">36</span><span class="token punctuation">;</span> <span class="token variable">$i</span> <span class="token operator">&lt;</span> <span class="token number">0x36d</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
@@ -825,17 +851,17 @@ lf<span class="token operator">/</span>root<span class="token operator">/</span>
   <div class="post-nav-prev post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="/medias/3.jpg" class="lazyload placeholder" data-srcset="/medias/3.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
+      <img class="lazyload lazyload placeholder" src="/medias/1.jpg" class="lazyload placeholder" data-srcset="/medias/1.jpg" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" alt="">
     </div>
-    <a href="/2021/12/28/CTFShow-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-nav-link">
+    <a href="/2021/12/28/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-nav-link">
       <div class="title">
         <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">CTFShow-反序列化</div>
+        <div class="title-text">反序列化</div>
       </div>
       
       <!-- <div class="content">
-        一、知识点1.魔术方法
-__construct 当对象创建（new）时会自动调用。但在 unserialize() 时是
+        一、反序列POC1.魔术方法
+__construct 当对象创建（new）时会自动调用。但在 unserialize()
       </div> -->
     </a>
   </div>

