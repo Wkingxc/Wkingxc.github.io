@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CTFHub--SSRF - Wking&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Wking&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Wking&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="CTFHub-SSRF"><meta property="og:type" content="blog"><meta property="og:title" content="CTFHub--SSRF"><meta property="og:url" content="https://wkingxc.com/2021/09/23/CTFHub-SSRF/"><meta property="og:site_name" content="Wking&#039;s Blog"><meta property="og:description" content="CTFHub-SSRF"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817184540249.png"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817184746833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817185914615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817184746833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817195612903.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/2021081719584197.png"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817203643799.png"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817203127709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210817201438624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819125653669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/2021081912583993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819125724215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819125707825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819211021194.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819211435913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210819211538638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820171631309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820173747861.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820173814675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820175446419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820175534572.png"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820175633520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820175750576.png"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/202108201811036.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820181717276.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="og:image" content="https://img-blog.csdnimg.cn/20210820181445766.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><meta property="article:published_time" content="2021-09-23T06:06:00.000Z"><meta property="article:modified_time" content="2021-09-23T06:06:00.000Z"><meta property="article:author" content="Wking"><meta property="article:tag" content="SSRF"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://img-blog.csdnimg.cn/20210817184540249.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://wkingxc.com/2021/09/23/CTFHub-SSRF/"},"headline":"CTFHub--SSRF","image":["https://img-blog.csdnimg.cn/20210817184540249.png","https://img-blog.csdnimg.cn/2021081719584197.png","https://img-blog.csdnimg.cn/20210817203643799.png","https://img-blog.csdnimg.cn/20210820175534572.png","https://img-blog.csdnimg.cn/20210820175750576.png"],"datePublished":"2021-09-23T06:06:00.000Z","dateModified":"2021-09-23T06:06:00.000Z","author":{"@type":"Person","name":"Wking"},"publisher":{"@type":"Organization","name":"Wking's Blog","logo":{"@type":"ImageObject","url":"https://wkingxc.com/img/logo.png"}},"description":"CTFHub-SSRF"}</script><link rel="canonical" href="https://wkingxc.com/2021/09/23/CTFHub-SSRF/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Wking&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">目录</a><a class="navbar-item" href="/friends">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/Wkingxc"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-09-23T06:06:00.000Z" title="2021/9/23 14:06:00">2021-09-23</time>发表</span><span class="level-item"><a class="link-muted" style="color:#1E90FF;" href="/categories/CTFHub/">CTFHub</a></span><span class="level-item">15 分钟读完 (大约2299个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFHub--SSRF</h1><div class="content"><p>CTFHub-SSRF</p>
+<span id="more"></span>
+
+<h2 id="一、Post请求"><a href="#一、Post请求" class="headerlink" title="一、Post请求"></a>一、Post请求</h2><p><strong>1.先用伪协议尝试读取index.php和flag.php文件</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20210817184540249.png" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动">以下为index.php源代码</p>
+<p><img src="https://img-blog.csdnimg.cn/20210817184746833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p>再看flag.php里出现了一串奇怪的key，利用curl和gopher协议POST数据到flag.php即可</p>
+<p>key&#x3D;88e24a185b1471ea34764dfb6129c7d7</p>
+<p>思路：往index.php里传入我们的payload</p>
+<blockquote>
+<p> &#x2F;?url&#x3D;127.0.0.1:80&#x2F;index.php?url&#x3D;gopher:&#x2F;&#x2F;POST包</p>
+</blockquote>
+<p><strong>2.构造post请求</strong></p>
+<blockquote>
+<p>注意项： ①对构造的post包进行三次URL编码，本体一次，传入index一次，跳转到flag一次</p>
+<p>②编码第一次后的%0A全部替换成%0D%0A</p>
+<p>③content-length为最后一行的长度，即post数据的大小</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /flag.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:80</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 36</span><br><span class="line"></span><br><span class="line">key=8a6d748f4f820709cd9e444991d49dd0</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p>进行三次编码修改后可得：</p>
+<p>POST%252520&#x2F;flag.php%252520HTTP&#x2F;1.1%25250D%25250AHost%25253A%252520127.0.0.1%25253A80%25250D%25250AContent-Type%25253A%252520application&#x2F;x-www-form-urlencoded%25250D%25250AContent-Length%25253A%25252036%25250D%25250A%25250D%25250Akey%25253D88e24a185b1471ea34764dfb6129c7d7</p>
+<p><strong>3.发送请求</strong></p>
+<blockquote>
+<p>gopher协议格式：URL:gopher:&#x2F;&#x2F;<host>:<port>&#x2F;<gopher-path>_后接TCP数据流</p>
+<p>?url&#x3D;127.0.0.1&#x2F;index.php&#x2F;?url&#x3D;gopher:&#x2F;&#x2F;127.0.0.1:80&#x2F;_POST包</p>
+</blockquote>
+<p> 如图发送数据包即可返回两个HTTP请求（右边两次 200 OK）</p>
+<p><img src="https://img-blog.csdnimg.cn/20210817185914615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<blockquote>
+<p>注意：要进行两次?url&#x3D;跳转，第一次转到127.0.0.1&#x2F;index.php后，再将?url&#x3D;构造的post包传入index.php后才可成功获取flag,否则返回错误</p>
+</blockquote>
+<h2 id="二、上传文件"><a href="#二、上传文件" class="headerlink" title="二、上传文件"></a>二、上传文件</h2><p> <strong>1.构造file伪协议payload查看index.php和flag.php源代码</strong></p>
+<blockquote>
+<p>?url&#x3D;file:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;index.php(flag.php)</p>
+</blockquote>
+<p>发现此题跟上题类似，只是这次需要post上传的是一个文件 </p>
+<p><img src="https://img-blog.csdnimg.cn/20210817184746833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"><img src="https://img-blog.csdnimg.cn/20210817195612903.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> <strong>2.网页中没有提交按钮，修改源代码添加提交按钮</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;submit&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><img src="https://img-blog.csdnimg.cn/2021081719584197.png"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210817203643799.png" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><strong>3.提交文件，并抓包，这个包就是我们要构造的POST包</strong> </p>
+<p><img src="https://img-blog.csdnimg.cn/20210817203127709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<blockquote>
+<p> 编码左边请求包—&gt;编码一次修改%0A为%0D%0A后，再连续编码两次</p>
+</blockquote>
+<p> <strong>4.构造payload发送请求</strong></p>
+<blockquote>
+<p>?url&#x3D;127.0.0.1&#x2F;index.php&#x2F;?url&#x3D;gopher:&#x2F;&#x2F;127.0.0.1:80&#x2F;_POST包</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20210817201438624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"> 成功获取flag！</p>
+<h2 id="三、FastCGI协议"><a href="#三、FastCGI协议" class="headerlink" title="三、FastCGI协议"></a>三、FastCGI协议</h2><p>协议具体介绍和漏洞分析如下链接</p>
+<p><a href="https://blog.csdn.net/mysteryflower/article/details/94386461">Fastcgi协议分析 &amp;&amp; PHP-FPM未授权访问漏洞</a></p>
+<p>网上已经有很多利用nc 和exp解题的操作，这里使用Gopherus工具来构造payload</p>
+<blockquote>
+<p>很多教程都是使用 &#x2F;usr&#x2F;local&#x2F;lib&#x2F;php&#x2F;PEAR.php</p>
+<p>实测发现：&#x2F;var&#x2F;www&#x2F;html&#x2F;index.php即可使用</p>
+</blockquote>
+<p><strong>1. 直接在gopherus中输入PHP文件后加上命令即可：ls</strong></p>
+<p>将得到的payload再次进行URL编码，是协议后面那串进行第二次编码</p>
+<p>之后用burp抓包加上gopher协议并发送，返回了ls的结果，并没有发现flag相关文件</p>
+<p><img src="https://img-blog.csdnimg.cn/20210819125653669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> <img src="https://img-blog.csdnimg.cn/2021081912583993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> <strong>2.使用查找命令: find &#x2F; -name flag*</strong></p>
+<p>编码操作如上，发现最后一个文件应该就是要找的flag文件</p>
+<p><img src="https://img-blog.csdnimg.cn/20210819125724215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> <strong>3.使用cat命令查看文件</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20210819125707825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> 成功拿到flag！</p>
+<blockquote>
+<p> 附上另一个大佬写的博客，看了很有启发：<a href="https://www.soapffz.com/sec/ctf/566.html">SSRF 学习之 ctfhub靶场-FastCGI - soapffz’s blog</a></p>
+</blockquote>
+<h2 id="四、Redis协议"><a href="#四、Redis协议" class="headerlink" title="四、Redis协议"></a>四、Redis协议</h2><p><a href="https://xz.aliyun.com/t/5665#toc-8">浅析Redis中SSRF的利用 - 先知社区 (aliyun.com)</a>—前置知识</p>
+<p>此题是利用gopher写入木马文件，执行命令，最后拿到flag</p>
+<p><strong>1.构造Redis命令（在这里我使用的是Gopherus工具）</strong></p>
+<p>构造一句话代码的Redis命令</p>
+<p><img src="https://img-blog.csdnimg.cn/20210819211021194.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"><strong>2.再次编码并利用gopher协议,burp抓包发送</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20210819211435913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><strong>3.尝试用蚁剑访问shell.php</strong></p>
+<p>访问成功并找到flag文件</p>
+<p><img src="https://img-blog.csdnimg.cn/20210819211538638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h2 id="五、几道IP绕过"><a href="#五、几道IP绕过" class="headerlink" title="五、几道IP绕过"></a>五、几道IP绕过</h2><p><a href="https://zhuanlan.zhihu.com/p/73736127">常用绕过方法—链接</a></p>
+<ul>
+<li>locahost绕过</li>
+<li>利用@</li>
+<li>进制转换绕过</li>
+<li>短网址访问</li>
+<li>利用句号：127。0。0。1 &gt;&gt;&gt; 127.0.0.1</li>
+<li>利用<a href="https://link.zhihu.com/?target=http://xip.io">http://xip.io</a>和xip.name绕过</li>
+<li>利用Enclosed alphanumerics绕过</li>
+</ul>
+<h3 id="1-URL-Bypass"><a href="#1-URL-Bypass" class="headerlink" title="1.URL Bypass"></a>1.URL Bypass</h3><blockquote>
+<p>根据提示构造：?url&#x3D;<a href="http://notfound.ctfhub.com@127.0.0.1/flag.php">http://notfound.ctfhub.com@127.0.0.1/flag.php</a></p>
+</blockquote>
+<h3 id="2-数字IP-Bypass"><a href="#2-数字IP-Bypass" class="headerlink" title="2.数字IP Bypass"></a><img src="https://img-blog.csdnimg.cn/20210820171631309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动">2.数字IP Bypass</h3><p>当特定IP数字被过滤时，可以考虑用其他进制代替</p>
+<ul>
+<li><p>例如：127.0.0.1可以转换为： </p>
+<ul>
+<li><p>十六进制 &#x3D; 0x7F000001</p>
+</li>
+<li><p>十进制 &#x3D; 2130706433</p>
+</li>
+</ul>
+</li>
+</ul>
+<p> <img src="https://img-blog.csdnimg.cn/20210820173747861.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210820173814675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<blockquote>
+<p>或者使用localhost代替127.0.0.1也可 </p>
+</blockquote>
+<h3 id="3-302跳转-Bypass"><a href="#3-302跳转-Bypass" class="headerlink" title="3. 302跳转 Bypass"></a>3. 302跳转 Bypass</h3><p>直接访问flag.php，提示要让我们从?url&#x3D;127.0.0.1中访问</p>
+<p><img src="https://img-blog.csdnimg.cn/20210820175446419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p>访问发现该地址被过滤了 </p>
+<p><img src="https://img-blog.csdnimg.cn/20210820175534572.png"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> 我们可以用file:&#x2F;&#x2F;&#x2F;协议看下index.php的源代码</p>
+<p><img src="https://img-blog.csdnimg.cn/20210820175633520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> 仅仅过滤了数字，用进制绕过或者localhost绕过皆可成功</p>
+<p><img src="https://img-blog.csdnimg.cn/20210820175750576.png"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="4-DNS重绑定-Bypass"><a href="#4-DNS重绑定-Bypass" class="headerlink" title="4.DNS重绑定 Bypass"></a>4.DNS重绑定 Bypass</h3><p><a href="https://zhuanlan.zhihu.com/p/89426041">题目附件资料</a></p>
+<p><strong>这道题可以照搬第三题的方法，查看源代码后尝试用localhost和进制转换来绕过，发现成功</strong></p>
+<blockquote>
+<p>下面是使用DNS绑定攻击，参考文章：<a href="https://senimo.blog.csdn.net/article/details/118486190">CTFHub技能树 Web-SSRF DNS重绑定 Bypass_Senimo-CSDN博客</a></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/202108201811036.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> 理解原理之后，用文章中的链接工具，达到攻击效果</p>
+<blockquote>
+<p>通过<a href="https://lock.cmpxchg8b.com/rebinder.html">rbndr.us dns rebinding service</a>网站设置DNS</p>
+<p><img src="https://img-blog.csdnimg.cn/20210820181717276.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20210820181445766.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxNzEwMzMx,size_16,color_FFFFFF,t_70"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><strong>SSRF部分到此结束，收获颇多！</strong> </p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CTFHub--SSRF</p><p><a href="https://wkingxc.com/2021/09/23/CTFHub-SSRF/">https://wkingxc.com/2021/09/23/CTFHub-SSRF/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Wking</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-09-23</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-09-23</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/SSRF/">SSRF</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/09/24/XCTF-warmup/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">攻防世界_warmup</span></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://wkingxc.com/2021/09/23/CTFHub-SSRF/';
+            this.page.identifier = '2021/09/23/CTFHub-SSRF/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'wkingxc' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#一、Post请求"><span class="level-left"><span class="level-item">1</span><span class="level-item">一、Post请求</span></span></a></li><li><a class="level is-mobile" href="#二、上传文件"><span class="level-left"><span class="level-item">2</span><span class="level-item">二、上传文件</span></span></a></li><li><a class="level is-mobile" href="#三、FastCGI协议"><span class="level-left"><span class="level-item">3</span><span class="level-item">三、FastCGI协议</span></span></a></li><li><a class="level is-mobile" href="#四、Redis协议"><span class="level-left"><span class="level-item">4</span><span class="level-item">四、Redis协议</span></span></a></li><li><a class="level is-mobile" href="#五、几道IP绕过"><span class="level-left"><span class="level-item">5</span><span class="level-item">五、几道IP绕过</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-URL-Bypass"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">1.URL Bypass</span></span></a></li><li><a class="level is-mobile" href="#2-数字IP-Bypass"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">2.数字IP Bypass</span></span></a></li><li><a class="level is-mobile" href="#3-302跳转-Bypass"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">3. 302跳转 Bypass</span></span></a></li><li><a class="level is-mobile" href="#4-DNS重绑定-Bypass"><span class="level-left"><span class="level-item">5.4</span><span class="level-item">4.DNS重绑定 Bypass</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Wking&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 Wking</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2021-2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
