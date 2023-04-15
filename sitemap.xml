@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://wkingxc.com/good_articles/index.html</loc>
+    <loc>https://wkingxc.com/friends/index.html</loc>
     
     <lastmod>2023-04-15</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://wkingxc.com/friends/index.html</loc>
+    <loc>https://wkingxc.com/good_articles/index.html</loc>
     
-    <lastmod>2023-04-14</lastmod>
+    <lastmod>2023-04-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -243,14 +243,14 @@
   </url>
   
   <url>
-    <loc>https://wkingxc.com/tags/php%E7%9B%B8%E5%85%B3/</loc>
+    <loc>https://wkingxc.com/tags/sql%E6%B3%A8%E5%85%A5/</loc>
     <lastmod>2023-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wkingxc.com/tags/sql%E6%B3%A8%E5%85%A5/</loc>
+    <loc>https://wkingxc.com/tags/php%E7%9B%B8%E5%85%B3/</loc>
     <lastmod>2023-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -399,14 +399,14 @@
   </url>
   
   <url>
-    <loc>https://wkingxc.com/categories/CTFSHOW/</loc>
+    <loc>https://wkingxc.com/categories/Web%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2023-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wkingxc.com/categories/Web%E5%AE%89%E5%85%A8/</loc>
+    <loc>https://wkingxc.com/categories/CTFSHOW/</loc>
     <lastmod>2023-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
