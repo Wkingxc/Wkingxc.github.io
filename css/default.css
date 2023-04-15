@@ -412,13 +412,13 @@ button,
 input,
 select,
 textarea {
-  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif;
+  font-family: 'Microsoft YaHei';
 }
 code,
 pre {
   -moz-osx-font-smoothing: auto;
   -webkit-font-smoothing: auto;
-  font-family: 'Source Code Pro', monospace, 'Microsoft YaHei';
+  font-family: 'Consolas';
 }
 body {
   color: #4a4a4a;
@@ -538,7 +538,7 @@ article.media .date,
 article.media .categories,
 .article-licensing .licensing-title a,
 .article-licensing .licensing-meta h6 {
-  font-size: 0.85rem !important;
+  font-size: 0.9rem !important;
 }
 @media screen and (max-width: 768px) {
   .is-size-1-mobile {
@@ -560,7 +560,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-mobile {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 769px), print {
@@ -583,7 +583,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-tablet {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (max-width: 1087px) {
@@ -606,7 +606,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-touch {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1088px) {
@@ -629,7 +629,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-desktop {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1280px) {
@@ -652,7 +652,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-widescreen {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1472px) {
@@ -675,7 +675,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-fullhd {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 .has-text-centered {
@@ -1064,19 +1064,19 @@ a.has-text-grey-lightest:focus {
   font-weight: 700 !important;
 }
 .is-family-primary {
-  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'Microsoft YaHei' !important;
 }
 .is-family-secondary {
-  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'Microsoft YaHei' !important;
 }
 .is-family-sans-serif {
-  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'Microsoft YaHei' !important;
 }
 .is-family-monospace {
   font-family: monospace !important;
 }
 .is-family-code {
-  font-family: 'Source Code Pro', monospace, 'Microsoft YaHei' !important;
+  font-family: 'Consolas' !important;
 }
 .is-block {
   display: block !important;
@@ -6261,7 +6261,7 @@ a.tag:hover {
   font-size: 1rem;
 }
 .title.is-7 {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 .subtitle {
   color: #4a4a4a;
@@ -6295,7 +6295,7 @@ a.tag:hover {
   font-size: 1rem;
 }
 .subtitle.is-7 {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 .heading {
   display: block;
@@ -11259,6 +11259,7 @@ figure.highlight {
   position: relative;
   margin: 1em 0 1em !important;
   border-radius: 4px;
+  font-size: 1.05em;
 }
 figure.highlight.folded .highlight-body {
   height: 0;
@@ -11306,7 +11307,7 @@ figure.highlight figcaption * {
 }
 figure.highlight figcaption span {
   font-weight: 500;
-  font-family: 'Source Code Pro', monospace, 'Microsoft YaHei';
+  font-family: 'Consolas';
 }
 figure.highlight figcaption .level-left *:not(:last-child) {
   margin-right: 0.5em;
@@ -11607,7 +11608,7 @@ figure.highlight.foldable div.level-left {
 .cc-window,
 .cc-revoke {
   font-size: 1.1rem !important;
-  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'Microsoft YaHei' !important;
 }
 .cc-window {
   color: #4a4a4a !important;
@@ -11683,4 +11684,13 @@ figure.highlight.foldable div.level-left {
   .section {
     padding: 1.5rem 1rem;
   }
+}
+.is-2-column .container {
+  margin-left: 6rem;
+  margin-right: 0.5rem;
+}
+.is-3-column .container {
+  max-width: 1600px;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }

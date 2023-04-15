@@ -538,7 +538,7 @@ article.media .date,
 article.media .categories,
 .article-licensing .licensing-title a,
 .article-licensing .licensing-meta h6 {
-  font-size: 0.85rem !important;
+  font-size: 0.9rem !important;
 }
 @media screen and (max-width: 768px) {
   .is-size-1-mobile {
@@ -560,7 +560,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-mobile {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 769px), print {
@@ -583,7 +583,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-tablet {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (max-width: 1087px) {
@@ -606,7 +606,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-touch {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1088px) {
@@ -629,7 +629,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-desktop {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1280px) {
@@ -652,7 +652,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-widescreen {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 @media screen and (min-width: 1472px) {
@@ -675,7 +675,7 @@ article.media .categories,
     font-size: 1rem !important;
   }
   .is-size-7-fullhd {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
 }
 .has-text-centered {
@@ -6261,7 +6261,7 @@ a.tag:hover {
   font-size: 1rem;
 }
 .title.is-7 {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 .subtitle {
   color: #cdcdcd;
@@ -6295,7 +6295,7 @@ a.tag:hover {
   font-size: 1rem;
 }
 .subtitle.is-7 {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 .heading {
   display: block;
@@ -11260,6 +11260,7 @@ figure.highlight {
   position: relative;
   margin: 1em 0 1em !important;
   border-radius: 0;
+  font-size: 1.05em;
 }
 figure.highlight.folded .highlight-body {
   height: 0;
@@ -11684,6 +11685,15 @@ figure.highlight.foldable div.level-left {
   .section {
     padding: 1.5rem 1rem;
   }
+}
+.is-2-column .container {
+  margin-left: 6rem;
+  margin-right: 0.5rem;
+}
+.is-3-column .container {
+  max-width: 1600px;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 body {
   counter-reset: card;
