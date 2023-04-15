@@ -10988,7 +10988,8 @@ a.article-nav-next span {
   }
 }
 .navbar-main .navbar-logo img {
-  max-height: 1.75rem;
+  max-height: 5.25rem;
+  max-width: auto;
 }
 @media screen and (min-width: 1088px) {
   .navbar-main .navbar > .container .navbar-menu,
@@ -11683,17 +11684,8 @@ figure.highlight.foldable div.level-left {
 }
 @media screen and (max-width: 768px) {
   .section {
-    padding: 1.5rem 1rem;
+    padding: 0.7rem 0.7rem;
   }
-}
-.is-2-column .container {
-  margin-left: 6rem;
-  margin-right: 0.5rem;
-}
-.is-3-column .container {
-  max-width: 1600px;
-  margin-left: 3rem;
-  margin-right: 3rem;
 }
 body {
   counter-reset: card;
