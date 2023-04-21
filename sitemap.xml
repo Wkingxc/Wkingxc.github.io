@@ -229,7 +229,7 @@
 
   <url>
     <loc>https://wkingxc.com/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -237,105 +237,105 @@
   
   <url>
     <loc>https://wkingxc.com/tags/SSTI/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/sql%E6%B3%A8%E5%85%A5/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/php%E7%9B%B8%E5%85%B3/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/php/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/SSRF/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/RCE/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/CTFSHOW/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/Nodejs/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/Python/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/Crypto/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/Web%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/tags/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -344,84 +344,84 @@
   
   <url>
     <loc>https://wkingxc.com/categories/BUUCTF/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/CTFHub/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/CTFshow/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/CTFShow/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/CTF/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/Nodejs/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/Course/</loc>
-    <lastmod>2023-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wkingxc.com/categories/Web%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/CTFSHOW/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wkingxc.com/categories/Web%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/XCTF/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wkingxc.com/categories/%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81/</loc>
-    <lastmod>2023-04-15</lastmod>
+    <lastmod>2023-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
