@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>转盘后台管理</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="nav-buttons">
+            <h1>转盘后台管理</h1>
+            <button class="btn" onclick="window.location.href='index.html'">返回主页</button>
+        </div>
+
+        <div class="controls">
+            <select id="categorySelect" class="btn">
+                <option value="action">动作</option>
+                <option value="body">身体部位</option>
+            </select>
+        </div>
+
+        <table class="data-table" id="dataTable">
+            <thead>
+                <tr>
+                    <th>内容</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <form id="addForm" class="add-form">
+            <div class="form-group">
+                <label for="newItem">添加新项目：</label>
+                <input type="text" id="newItem" required placeholder="请输入新的内容">
+            </div>
+            <button type="submit" class="btn">添加</button>
+        </form>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html> 

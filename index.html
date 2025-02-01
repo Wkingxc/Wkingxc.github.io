@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幸运转盘</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <h1>幸运转盘</h1>
+        <button class="btn" onclick="window.location.href='admin.html'">后台管理</button>
+    </div>
+
+    <div class="controls">
+        <select id="arraySelector" class="btn">
+            <option value="action">动作</option>
+            <option value="body">身体部位</option>
+        </select>
+        <button id="spinButton" class="btn">开始转动</button>
+    </div>
+
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <svg id="wheel" width="400" height="400" viewBox="0 0 400 400"></svg>
+    </div>
+
+    <div id="result">等待转盘停止...</div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/wheel.js"></script>
+</body>
+</html>
