@@ -52,11 +52,9 @@ class Admin {
     }
 
     handleDelete(item) {
-        if (confirm(`确定要删除 "${item}" 吗？`)) {
-            const category = this.categorySelect.value;
-            if (storage.removeItem(category, item)) {
-                this.loadData();
-            }
+        const category = this.categorySelect.value;
+        if (storage.removeItem(category, item)) {
+            this.loadData();
         }
     }
 }
